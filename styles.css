@@ -229,21 +229,6 @@ svg, canvas {
   justify-self: end;
 }
 
-.mh-nav-actions .mh-signin-link {
-  display: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--mh-ink-secondary);
-  padding: 8px 12px;
-  border-radius: 9px;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.mh-nav-actions .mh-signin-link:hover {
-  background-color: var(--mh-soft);
-  color: var(--mh-green);
-}
-
 .mh-nav-actions .mh-btn-sm {
   display: none;
 }
@@ -336,9 +321,6 @@ svg, canvas {
   }
   .mh-nav-links {
     display: flex;
-  }
-  .mh-nav-actions .mh-signin-link {
-    display: inline-flex;
   }
   .mh-nav-actions .mh-btn-sm {
     display: inline-flex;
