@@ -1949,6 +1949,12 @@ dialog.mh-dialog[open] {
   display: none !important;
 }
 
+/* Spam trap. Nobody sees it, nothing reads it out, and tabbing skips it,
+   so anything arriving in that field came from a script. */
+.mh-hp {
+  display: none !important;
+}
+
 .mh-dialog-done-mark {
   display: grid;
   place-items: center;

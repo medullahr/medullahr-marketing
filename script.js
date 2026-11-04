@@ -650,6 +650,7 @@ const CONTACT_EMAIL =
         const companyInput = document.getElementById("mh-demo-company");
         const sizeInput = document.getElementById("mh-demo-size");
         const notesInput = document.getElementById("mh-demo-notes");
+        const trapInput = document.getElementById("mh-demo-website");
 
         const nameErr = document.getElementById("mh-err-name");
         const emailErr = document.getElementById("mh-err-email");
@@ -746,7 +747,8 @@ const CONTACT_EMAIL =
             email: emailVal,
             company: companyVal,
             size: sizeVal,
-            notes: notesVal
+            notes: notesVal,
+            company_website: trapInput ? trapInput.value : ""
           })
         })
           .then((res) => showDone(res.ok))

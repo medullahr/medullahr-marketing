@@ -3,6 +3,14 @@ const FALLBACK_FROM = "MedullaHR Website <demo@medullahr.com>";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+const ALLOWED_ORIGINS = [
+  "https://medullahr.com",
+  "https://www.medullahr.com"
+];
+
+// The real form sends well under 3 KB once the notes field is capped.
+const MAX_BODY_BYTES = 8192;
+
 const FONT = "'Helvetica Neue', Arial, sans-serif";
 const PAGE = "#F6FAF7";
 const CARD = "#E4F1EA";
@@ -253,16 +261,58 @@ function buildHtml(lead) {
 
 export async function onRequestPost(context) {
   const env = context.env;
+  const request = context.request;
+
+  const origin = request.headers.get("origin");
+  if (!origin || ALLOWED_ORIGINS.indexOf(origin) === -1) {
+    return json({ ok: false, reason: "forbidden_origin" }, 403);
+  }
+
+  const mediaType = (request.headers.get("content-type") || "")
+    .split(";")[0]
+    .trim()
+    .toLowerCase();
+  if (mediaType !== "application/json") {
+    return json({ ok: false, reason: "unsupported_media_type" }, 415);
+  }
+
+  const declaredLength = Number(request.headers.get("content-length") || 0);
+  if (declaredLength > MAX_BODY_BYTES) {
+    return json({ ok: false, reason: "payload_too_large" }, 413);
+  }
 
   if (!env.RESEND_API_KEY) {
     return json({ ok: false, reason: "not_configured" }, 503);
   }
 
-  let payload;
+  let raw;
   try {
-    payload = await context.request.json();
+    raw = await request.text();
   } catch (err) {
     return json({ ok: false, reason: "bad_request" }, 400);
+  }
+
+  // A chunked request can arrive without a usable Content-Length, so the
+  // body is measured again once it is actually here.
+  if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) {
+    return json({ ok: false, reason: "payload_too_large" }, 413);
+  }
+
+  let payload;
+  try {
+    payload = JSON.parse(raw);
+  } catch (err) {
+    return json({ ok: false, reason: "bad_request" }, 400);
+  }
+
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return json({ ok: false, reason: "bad_request" }, 400);
+  }
+
+  // Nobody can see or tab to this field, so a value in it means a script
+  // filled the form in. Answer as though it worked and send nothing.
+  if (clean(payload.company_website, 200)) {
+    return json({ ok: true }, 200);
   }
 
   const name = clean(payload.name, 120);
