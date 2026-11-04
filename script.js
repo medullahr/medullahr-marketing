@@ -8,6 +8,13 @@ const CONTACT_EMAIL =
     ? MEDULLAHR_CONFIG.contactEmail
     : "hello@medullahr.com";
 
+// Turnstile calls this by name when the widget cannot run: a bad site key,
+// a domain it does not cover, or a network it cannot reach. Treat it the
+// same as the script never loading and let the visitor email us instead.
+window.mhChallengeUnavailable = function mhChallengeUnavailable() {
+  window.MEDULLAHR_CHALLENGE_BROKEN = true;
+};
+
 (function initMedullaHR() {
   const reducedMotionQuery =
     typeof window.matchMedia === "function"
@@ -759,10 +766,14 @@ const CONTACT_EMAIL =
         const token = tokenField ? tokenField.value : "";
         const challengeErr = document.getElementById("mh-err-turnstile");
 
-        // An ad blocker or a blocked network can stop the check loading at
-        // all. That is not the visitor's fault, so hand them the email route
-        // rather than a dead end.
-        if (!window.turnstile || !tokenField) {
+        // An ad blocker, a blocked network or a widget that refuses to run
+        // can stop the check working. That is not the visitor's fault, so
+        // hand them the email route rather than a dead end.
+        if (
+          !window.turnstile ||
+          !tokenField ||
+          window.MEDULLAHR_CHALLENGE_BROKEN
+        ) {
           if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = submitLabel;
