@@ -613,6 +613,10 @@ const CONTACT_EMAIL =
         if (reopenMailto) {
           reopenMailto.hidden = false;
         }
+        const reopenChallengeErr = document.getElementById("mh-err-turnstile");
+        if (reopenChallengeErr) {
+          reopenChallengeErr.textContent = "";
+        }
         demoDialog.showModal();
       });
     });
@@ -739,6 +743,50 @@ const CONTACT_EMAIL =
           }
         };
 
+        const resetChallenge = () => {
+          if (window.turnstile) {
+            try {
+              window.turnstile.reset("#mh-demo-turnstile");
+            } catch (err) {
+              /* the widget was never rendered */
+            }
+          }
+        };
+
+        const tokenField = demoForm.querySelector(
+          'input[name="cf-turnstile-response"]'
+        );
+        const token = tokenField ? tokenField.value : "";
+        const challengeErr = document.getElementById("mh-err-turnstile");
+
+        // An ad blocker or a blocked network can stop the check loading at
+        // all. That is not the visitor's fault, so hand them the email route
+        // rather than a dead end.
+        if (!window.turnstile || !tokenField) {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitLabel;
+          }
+          showDone(false);
+          return;
+        }
+
+        if (!token) {
+          if (challengeErr) {
+            challengeErr.textContent =
+              "Please complete the check below to confirm you are human.";
+          }
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitLabel;
+          }
+          return;
+        }
+
+        if (challengeErr) {
+          challengeErr.textContent = "";
+        }
+
         fetch("/api/demo", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -748,11 +796,38 @@ const CONTACT_EMAIL =
             company: companyVal,
             size: sizeVal,
             notes: notesVal,
-            company_website: trapInput ? trapInput.value : ""
+            company_website: trapInput ? trapInput.value : "",
+            turnstileToken: token
           })
         })
-          .then((res) => showDone(res.ok))
-          .catch(() => showDone(false));
+          .then((res) =>
+            res
+              .json()
+              .catch(() => ({}))
+              .then((body) => {
+                resetChallenge();
+
+                // A rejected check is worth a second try rather than a dead
+                // end. Any other refusal falls back to the email route.
+                if (!res.ok && body.reason === "human_check_failed") {
+                  if (challengeErr) {
+                    challengeErr.textContent =
+                      "That check did not pass. Please try once more.";
+                  }
+                  if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = submitLabel;
+                  }
+                  return;
+                }
+
+                showDone(res.ok);
+              })
+          )
+          .catch(() => {
+            resetChallenge();
+            showDone(false);
+          });
       });
     }
   }

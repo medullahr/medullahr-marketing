@@ -1216,6 +1216,16 @@
               </label>
             </div>
 
+            <div class="mh-turnstile">
+              <div
+                id="mh-demo-turnstile"
+                class="cf-turnstile"
+                data-sitekey="0X4AAAAAAFy-rLOxTnCgrTmL"
+                data-theme="light"
+              ></div>
+              <span id="mh-err-turnstile" class="mh-field-err"></span>
+            </div>
+
             <div class="mh-hp" aria-hidden="true">
               <label for="mh-demo-website">Company website</label>
               <input
@@ -1278,6 +1288,11 @@
       </div>
     </dialog>
 
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
   </body>

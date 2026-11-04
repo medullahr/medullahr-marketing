@@ -8,8 +8,37 @@ const ALLOWED_ORIGINS = [
   "https://www.medullahr.com"
 ];
 
-// The real form sends well under 3 KB once the notes field is capped.
+// The real form sends well under 3 KB once the notes field is capped,
+// and a Turnstile token tops out around 2 KB on top of that.
 const MAX_BODY_BYTES = 8192;
+
+const TURNSTILE_VERIFY_URL =
+  "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+async function passesHumanCheck(secret, token, ip) {
+  const form = new FormData();
+  form.append("secret", secret);
+  form.append("response", token);
+  if (ip) {
+    form.append("remoteip", ip);
+  }
+
+  let verdict;
+  try {
+    const response = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      body: form
+    });
+    if (!response.ok) {
+      return false;
+    }
+    verdict = await response.json();
+  } catch (err) {
+    return false;
+  }
+
+  return !!verdict && verdict.success === true;
+}
 
 const FONT = "'Helvetica Neue', Arial, sans-serif";
 const PAGE = "#F6FAF7";
@@ -323,6 +352,25 @@ export async function onRequestPost(context) {
 
   if (!name || !EMAIL_PATTERN.test(email)) {
     return json({ ok: false, reason: "invalid" }, 422);
+  }
+
+  // Nothing is sent until Cloudflare agrees there is a person behind this.
+  if (!env.TURNSTILE_SECRET_KEY) {
+    return json({ ok: false, reason: "not_configured" }, 503);
+  }
+
+  const turnstileToken = clean(payload.turnstileToken, 2048);
+  if (!turnstileToken) {
+    return json({ ok: false, reason: "human_check_failed" }, 403);
+  }
+
+  const verified = await passesHumanCheck(
+    env.TURNSTILE_SECRET_KEY,
+    turnstileToken,
+    request.headers.get("cf-connecting-ip") || ""
+  );
+  if (!verified) {
+    return json({ ok: false, reason: "human_check_failed" }, 403);
   }
 
   const lead = {
