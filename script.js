@@ -8,6 +8,16 @@ const CONTACT_EMAIL =
     ? MEDULLAHR_CONFIG.contactEmail
     : "hello@medullahr.com";
 
+// The full size widget is 300px wide, which will not fit in the demo
+// dialog on a small phone. This runs before the Turnstile script is
+// fetched, so the attribute is in place by the time the widget is drawn.
+(function sizeChallengeForScreen() {
+  const widget = document.getElementById("mh-demo-turnstile");
+  if (widget && window.innerWidth < 400) {
+    widget.setAttribute("data-size", "compact");
+  }
+})();
+
 // Turnstile calls this by name when the widget cannot run: a bad site key,
 // a domain it does not cover, or a network it cannot reach. Treat it the
 // same as the script never loading and let the visitor email us instead.
@@ -537,7 +547,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         <div class="mh-staff-card">
           <div class="mh-staff-card-head">
             <div>
-              <span class="mh-pill" style="height:24px;padding:0 10px;font-size:11.5px;margin-bottom:6px;">${item.badge}</span>
+              <span class="mh-pill" style="height:24px;padding:0 10px;font-size:12px;margin-bottom:6px;">${item.badge}</span>
               <strong>${item.cardTitle}</strong>
             </div>
             <span class="mh-status-pill">${item.cardStatus}</span>
