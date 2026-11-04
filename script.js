@@ -615,6 +615,9 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         if (demoFormView && demoDoneView) {
           demoFormView.hidden = false;
           demoDoneView.hidden = true;
+          // The inline style keeps the panel down even for a visitor
+          // holding an old copy of the stylesheet.
+          demoDoneView.style.display = "none";
         }
         const reopenMailto = document.getElementById("mh-demo-mailto-fallback");
         if (reopenMailto) {
@@ -653,6 +656,28 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
       });
     }
 
+    // The free text box only appears once somebody asks for it. Both the
+    // hidden attribute and the inline style come off together, so the
+    // field stays down even with an old stylesheet.
+    const otherToggle = document.getElementById("mh-demo-task-other");
+    const otherWrap = document.getElementById("mh-demo-other-wrap");
+    const otherInput = document.getElementById("mh-demo-other");
+
+    if (otherToggle && otherWrap) {
+      otherToggle.addEventListener("change", () => {
+        const wanted = otherToggle.checked;
+        otherToggle.setAttribute("aria-expanded", wanted ? "true" : "false");
+        otherWrap.hidden = !wanted;
+        otherWrap.style.display = wanted ? "" : "none";
+        if (wanted && otherInput) {
+          otherInput.focus();
+        }
+        if (!wanted && otherInput) {
+          otherInput.value = "";
+        }
+      });
+    }
+
     if (demoForm) {
       demoForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -660,7 +685,6 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         const emailInput = document.getElementById("mh-demo-email");
         const companyInput = document.getElementById("mh-demo-company");
         const sizeInput = document.getElementById("mh-demo-size");
-        const notesInput = document.getElementById("mh-demo-notes");
         const trapInput = document.getElementById("mh-demo-website");
 
         const nameErr = document.getElementById("mh-err-name");
@@ -670,7 +694,15 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         const emailVal = emailInput ? emailInput.value.trim() : "";
         const companyVal = companyInput ? companyInput.value.trim() : "";
         const sizeVal = sizeInput ? sizeInput.value : "";
-        const notesVal = notesInput ? notesInput.value.trim() : "";
+        // "Other" is the flag for the free text box, not a task in itself,
+        // so it is left out of the list that gets sent.
+        const taskVals = [...demoForm.querySelectorAll('input[name="tasks"]')]
+          .filter((box) => box.checked && box.value !== "Other")
+          .map((box) => box.value);
+        const otherVal =
+          otherToggle && otherToggle.checked && otherInput
+            ? otherInput.value.trim()
+            : "";
 
         let hasError = false;
         if (!nameVal) {
@@ -702,7 +734,10 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
           `Work email: ${emailVal}`,
           companyVal ? `Company: ${companyVal}` : null,
           sizeVal ? `Team size: ${sizeVal}` : null,
-          notesVal ? `\nNotes:\n${notesVal}` : null
+          taskVals.length
+            ? `\nLooking to simplify:\n${taskVals.map((t) => `- ${t}`).join("\n")}`
+            : null,
+          otherVal ? `${taskVals.length ? "" : "\n"}- Other: ${otherVal}` : null
         ]
           .filter(Boolean)
           .join("\n");
@@ -747,6 +782,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
           if (demoFormView && demoDoneView) {
             demoFormView.hidden = true;
             demoDoneView.hidden = false;
+            demoDoneView.style.display = "";
           }
         };
 
@@ -806,8 +842,9 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
             email: emailVal,
             company: companyVal,
             size: sizeVal,
-            notes: notesVal,
-            company_website: trapInput ? trapInput.value : "",
+            tasks: taskVals,
+            other: otherVal,
+            contact_preference_note: trapInput ? trapInput.value : "",
             turnstileToken: token
           })
         })

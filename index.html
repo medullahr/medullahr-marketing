@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=2" />
   </head>
   <body>
     <a href="#main-content" class="mh-skip">Skip to content</a>
@@ -1205,15 +1205,138 @@
                 </select>
               </label>
 
-              <label class="mh-field mh-span-2">
-                <span>Which HR tasks are you looking to simplify?</span>
-                <textarea
-                  id="mh-demo-notes"
-                  name="notes"
-                  rows="3"
-                  placeholder="Leave tracking, visa expiry reminders, payslips, onboarding..."
-                ></textarea>
-              </label>
+              <fieldset class="mh-field mh-span-2 mh-tasks">
+                <legend>Which HR tasks are you looking to simplify?</legend>
+                <p class="mh-tasks-hint">Tick as many as you like.</p>
+
+                <div class="mh-task-grid">
+                  <label class="mh-task">
+                    <input type="checkbox" name="tasks" value="Org Chart" />
+                    <span>Org Chart</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Hiring and Recruitment"
+                    />
+                    <span>Hiring and Recruitment</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Employee Onboarding"
+                    />
+                    <span>Employee Onboarding</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Attendance and Leave"
+                    />
+                    <span>Attendance and Leave</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Payroll and Benefits"
+                    />
+                    <span>Payroll and Benefits</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Learning and Development"
+                    />
+                    <span>Learning and Development</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Performance and Feedback"
+                    />
+                    <span>Performance and Feedback</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Employee Engagement"
+                    />
+                    <span>Employee Engagement</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="HR Budgets and Expenses"
+                    />
+                    <span>HR Budgets and Expenses</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="HR Admin and Documents"
+                    />
+                    <span>HR Admin and Documents</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="HR Compliance Reminders"
+                    />
+                    <span>HR Compliance Reminders</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Employee Relations"
+                    />
+                    <span>Employee Relations</span>
+                  </label>
+                  <label class="mh-task">
+                    <input type="checkbox" name="tasks" value="Offboarding" />
+                    <span>Offboarding</span>
+                  </label>
+                  <label class="mh-task">
+                    <input
+                      id="mh-demo-task-other"
+                      type="checkbox"
+                      name="tasks"
+                      value="Other"
+                      aria-controls="mh-demo-other-wrap"
+                      aria-expanded="false"
+                    />
+                    <span>Other</span>
+                  </label>
+                </div>
+
+                <div
+                  id="mh-demo-other-wrap"
+                  class="mh-task-other"
+                  hidden
+                  style="display: none"
+                >
+                  <label for="mh-demo-other">
+                    Tell us which other tasks you would like to simplify
+                  </label>
+                  <input
+                    id="mh-demo-other"
+                    type="text"
+                    name="other"
+                    maxlength="500"
+                    placeholder="Visa expiry reminders, petty cash, shift swaps..."
+                  />
+                </div>
+              </fieldset>
             </div>
 
             <div class="mh-turnstile">
@@ -1227,12 +1350,22 @@
               <span id="mh-err-turnstile" class="mh-field-err"></span>
             </div>
 
-            <div class="mh-hp" aria-hidden="true">
-              <label for="mh-demo-website">Company website</label>
+            <div
+              class="mh-hp"
+              aria-hidden="true"
+              style="
+                position: absolute;
+                left: -9999px;
+                width: 1px;
+                height: 1px;
+                overflow: hidden;
+              "
+            >
+              <label for="mh-demo-website">Contact preference note</label>
               <input
                 id="mh-demo-website"
                 type="text"
-                name="company_website"
+                name="contact_preference_note"
                 tabindex="-1"
                 autocomplete="off"
               />
@@ -1245,7 +1378,12 @@
           </form>
         </div>
 
-        <div id="mh-demo-done-view" class="mh-dialog-done" hidden>
+        <div
+          id="mh-demo-done-view"
+          class="mh-dialog-done"
+          hidden
+          style="display: none"
+        >
           <div class="mh-dialog-done-mark" aria-hidden="true">
             <svg
               width="24"
@@ -1294,8 +1432,8 @@
       async
       defer
     ></script>
-    <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script src="config.js?v=2"></script>
+    <script src="script.js?v=2"></script>
   </body>
 </html>
 

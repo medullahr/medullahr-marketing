@@ -1975,3 +1975,111 @@ dialog.mh-dialog[open] {
   color: var(--mh-green);
 }
 
+
+/* Tick boxes for the demo form's task picker. One column on a phone,
+   two side by side once there is room, and every row tall enough to be
+   a comfortable tap target. */
+.mh-tasks {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.mh-tasks legend {
+  padding: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mh-ink-secondary);
+}
+
+.mh-tasks-hint {
+  margin: 4px 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--mh-muted);
+}
+
+.mh-task-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+@media (min-width: 520px) {
+  .mh-task-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.mh-task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--mh-line-strong);
+  background-color: var(--mh-soft);
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--mh-ink);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.mh-task:hover {
+  background-color: var(--mh-white);
+}
+
+.mh-task input[type="checkbox"] {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--mh-green);
+  cursor: pointer;
+}
+
+.mh-task:has(input:checked) {
+  border-color: var(--mh-green);
+  background-color: var(--mh-white);
+}
+
+.mh-task:has(input:focus-visible) {
+  outline: 2px solid var(--mh-green);
+  outline-offset: 2px;
+}
+
+.mh-task-other {
+  margin-top: 10px;
+}
+
+.mh-task-other label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--mh-ink-secondary);
+}
+
+.mh-task-other input {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--mh-line-strong);
+  background-color: var(--mh-soft);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--mh-ink);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.mh-task-other input:focus {
+  border-color: var(--mh-green);
+  background-color: var(--mh-white);
+  outline: none;
+}

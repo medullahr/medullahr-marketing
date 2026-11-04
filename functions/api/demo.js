@@ -66,6 +66,26 @@ function clean(value, max) {
     .slice(0, max);
 }
 
+const MAX_TASKS = 20;
+const MAX_TASK_LENGTH = 80;
+const MAX_OTHER_LENGTH = 500;
+
+// Anything that is not a list of short, non-empty strings is discarded
+// rather than argued with: the form only ever sends tick box labels.
+function cleanTasks(value) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  const seen = [];
+  for (let i = 0; i < value.length && seen.length < MAX_TASKS; i++) {
+    const task = clean(value[i], MAX_TASK_LENGTH);
+    if (task && seen.indexOf(task) === -1) {
+      seen.push(task);
+    }
+  }
+  return seen;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -141,30 +161,68 @@ function buildHtml(lead) {
       "</table>"
     : "";
 
-  const notesBox = lead.notes
-    ? '<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin:22px 0 0 0">' +
-      "<tr>" +
-      '<td style="background-color:' +
-      PAGE +
-      ";border:1px solid " +
-      BORDER +
-      ';border-radius:8px;padding:18px 20px">' +
-      '<p style="margin:0 0 8px 0;font-family:' +
+  const bulletRows = lead.tasks
+    .map(function (task) {
+      return (
+        "<tr>" +
+        '<td valign="top" style="padding:3px 8px 3px 0;font-family:' +
+        FONT +
+        ";font-size:14px;line-height:22px;color:" +
+        ACCENT +
+        ';width:14px">&bull;</td>' +
+        '<td valign="top" style="padding:3px 0;font-family:' +
+        FONT +
+        ";font-size:14px;line-height:22px;color:" +
+        TEXT +
+        '">' +
+        escapeHtml(task) +
+        "</td>" +
+        "</tr>"
+      );
+    })
+    .join("");
+
+  const otherRow = lead.other
+    ? "<tr>" +
+      '<td valign="top" style="padding:3px 8px 3px 0;font-family:' +
       FONT +
-      ";font-size:12px;line-height:16px;letter-spacing:0.6px;text-transform:uppercase;color:" +
-      MUTED +
-      '">Looking to simplify</p>' +
-      '<p style="margin:0;font-family:' +
+      ";font-size:14px;line-height:22px;color:" +
+      ACCENT +
+      ';width:14px">&bull;</td>' +
+      '<td valign="top" style="padding:3px 0;font-family:' +
       FONT +
       ";font-size:14px;line-height:22px;color:" +
       TEXT +
-      '">' +
-      escapeHtml(lead.notes) +
-      "</p>" +
+      '"><strong style="color:' +
+      DARK +
+      '">Other:</strong> ' +
+      escapeHtml(lead.other) +
       "</td>" +
-      "</tr>" +
-      "</table>"
+      "</tr>"
     : "";
+
+  const tasksBox =
+    bulletRows || otherRow
+      ? '<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin:22px 0 0 0">' +
+        "<tr>" +
+        '<td style="background-color:' +
+        PAGE +
+        ";border:1px solid " +
+        BORDER +
+        ';border-radius:8px;padding:18px 20px">' +
+        '<p style="margin:0 0 10px 0;font-family:' +
+        FONT +
+        ";font-size:12px;line-height:16px;letter-spacing:0.6px;text-transform:uppercase;color:" +
+        MUTED +
+        '">Looking to simplify</p>' +
+        '<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse">' +
+        bulletRows +
+        otherRow +
+        "</table>" +
+        "</td>" +
+        "</tr>" +
+        "</table>"
+      : "";
 
   return (
     '<!DOCTYPE html><html><head><meta charset="utf-8">' +
@@ -233,7 +291,7 @@ function buildHtml(lead) {
     detailRows +
     "</table>" +
 
-    notesBox +
+    tasksBox +
 
     '<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin:26px 0 0 0">' +
     "<tr>" +
@@ -339,8 +397,12 @@ export async function onRequestPost(context) {
   }
 
   // Nobody can see or tab to this field, so a value in it means a script
-  // filled the form in. Answer as though it worked and send nothing.
-  if (clean(payload.company_website, 200)) {
+  // filled the form in. Answer as though it worked and send nothing. The
+  // old field name is still watched for visitors running a cached script.
+  if (
+    clean(payload.contact_preference_note, 200) ||
+    clean(payload.company_website, 200)
+  ) {
     return json({ ok: true }, 200);
   }
 
@@ -348,7 +410,10 @@ export async function onRequestPost(context) {
   const email = clean(payload.email, 160);
   const company = clean(payload.company, 160);
   const size = clean(payload.size, 60);
-  const notes = clean(payload.notes, 2000);
+  const tasks = cleanTasks(payload.tasks);
+  const other = clean(payload.other, MAX_OTHER_LENGTH);
+  // A cached copy of the old form still sends one free text field.
+  const legacyNotes = clean(payload.notes, MAX_OTHER_LENGTH);
 
   if (!name || !EMAIL_PATTERN.test(email)) {
     return json({ ok: false, reason: "invalid" }, 422);
@@ -378,7 +443,8 @@ export async function onRequestPost(context) {
     email: email,
     company: company,
     size: size,
-    notes: notes
+    tasks: tasks,
+    other: other || legacyNotes
   };
 
   const fields = [
@@ -390,12 +456,22 @@ export async function onRequestPost(context) {
     return pair[1];
   });
 
+  const bulletLines = lead.tasks.map(function (task) {
+    return "- " + task;
+  });
+  if (lead.other) {
+    bulletLines.push("- Other: " + lead.other);
+  }
+
   const text =
     fields
       .map(function (pair) {
         return pair[0] + ": " + pair[1];
       })
-      .join("\n") + (notes ? "\n\nLooking to simplify:\n" + notes : "");
+      .join("\n") +
+    (bulletLines.length
+      ? "\n\nLooking to simplify:\n" + bulletLines.join("\n")
+      : "");
 
   const subject =
     "📩 New demo request from " +
