@@ -66,6 +66,38 @@ function clean(value, max) {
     .slice(0, max);
 }
 
+// The tick boxes send the official module name, which is what the product
+// is organised by, while the form shows visitors plainer wording. The
+// notification carries both, so the team reads the visitor's words and
+// still knows which module is meant.
+const TASK_WORDING = {
+  "Org Chart": "Company Structure & Org Chart",
+  "Hiring and Recruitment": "Recruitment & Hiring",
+  "Employee Onboarding": "Onboarding New Employees",
+  "Attendance and Leave": "Attendance & Leave Management",
+  "Payroll and Benefits": "Payroll & Benefits",
+  "Learning and Development": "Learning & Development",
+  "Performance and Feedback": "Performance Management & Feedback",
+  "Employee Engagement": "Employee Engagement",
+  "HR Budgets and Expenses": "HR Budgets & Expenses",
+  "HR Admin and Documents": "HR Files & Documents",
+  "HR Compliance Reminders": "Visa, Emirates ID & Contract Renewal Tracking",
+  "Employee Relations": "Employee Relations: complaints, warnings & disputes",
+  Offboarding: "Resignations, Exits & End-of-Service"
+};
+
+// "Plain wording (Official module)", or the value on its own if it is not
+// one we know, which is what a cached copy of an older form may send.
+function describeTask(value) {
+  const wording = Object.prototype.hasOwnProperty.call(TASK_WORDING, value)
+    ? TASK_WORDING[value]
+    : "";
+  if (!wording || wording === value) {
+    return value;
+  }
+  return wording + " (" + value + ")";
+}
+
 const MAX_TASKS = 20;
 const MAX_TASK_LENGTH = 80;
 const MAX_OTHER_LENGTH = 500;
@@ -175,7 +207,7 @@ function buildHtml(lead) {
         ";font-size:14px;line-height:22px;color:" +
         TEXT +
         '">' +
-        escapeHtml(task) +
+        escapeHtml(describeTask(task)) +
         "</td>" +
         "</tr>"
       );
@@ -195,7 +227,7 @@ function buildHtml(lead) {
       TEXT +
       '"><strong style="color:' +
       DARK +
-      '">Other:</strong> ' +
+      '">Something else:</strong> ' +
       escapeHtml(lead.other) +
       "</td>" +
       "</tr>"
@@ -457,10 +489,10 @@ export async function onRequestPost(context) {
   });
 
   const bulletLines = lead.tasks.map(function (task) {
-    return "- " + task;
+    return "- " + describeTask(task);
   });
   if (lead.other) {
-    bulletLines.push("- Other: " + lead.other);
+    bulletLines.push("- Something else: " + lead.other);
   }
 
   const text =

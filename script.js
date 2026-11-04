@@ -706,9 +706,21 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         const sizeVal = sizeInput ? sizeInput.value : "";
         // "Other" is the flag for the free text box, not a task in itself,
         // so it is left out of the list that gets sent.
-        const taskVals = [...demoForm.querySelectorAll('input[name="tasks"]')]
-          .filter((box) => box.checked && box.value !== "Other")
-          .map((box) => box.value);
+        const taskBoxes = [
+          ...demoForm.querySelectorAll('input[name="tasks"]')
+        ].filter((box) => box.checked && box.value !== "Other");
+        // The official module name travels to the server; the wording the
+        // visitor actually read goes into the email app fallback.
+        const taskVals = taskBoxes.map((box) => box.value);
+        const taskLabels = taskBoxes.map((box) => {
+          const text = box.parentElement
+            ? box.parentElement.querySelector("span")
+            : null;
+          const wording = text ? text.textContent.trim() : "";
+          return wording && wording !== box.value
+            ? `${wording} (${box.value})`
+            : box.value;
+        });
         const otherVal =
           otherToggle && otherToggle.checked && otherInput
             ? otherInput.value.trim()
@@ -744,10 +756,12 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
           `Work email: ${emailVal}`,
           companyVal ? `Company: ${companyVal}` : null,
           sizeVal ? `Team size: ${sizeVal}` : null,
-          taskVals.length
-            ? `\nLooking to simplify:\n${taskVals.map((t) => `- ${t}`).join("\n")}`
+          taskLabels.length
+            ? `\nLooking to simplify:\n${taskLabels.map((t) => `- ${t}`).join("\n")}`
             : null,
-          otherVal ? `${taskVals.length ? "" : "\n"}- Other: ${otherVal}` : null
+          otherVal
+            ? `${taskLabels.length ? "" : "\n"}- Something else: ${otherVal}`
+            : null
         ]
           .filter(Boolean)
           .join("\n");

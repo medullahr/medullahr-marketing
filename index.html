@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <a href="#main-content" class="mh-skip">Skip to content</a>
@@ -1206,13 +1206,17 @@
               </label>
 
               <fieldset class="mh-field mh-span-2 mh-tasks">
-                <legend>Which HR tasks are you looking to simplify?</legend>
-                <p class="mh-tasks-hint">Tick as many as you like.</p>
+                <legend>What would you like help with?</legend>
+                <p class="mh-tasks-hint">Tick all that apply.</p>
 
                 <div class="mh-task-grid">
                   <label class="mh-task">
-                    <input type="checkbox" name="tasks" value="Org Chart" />
-                    <span>Org Chart</span>
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Org Chart"
+                    />
+                    <span>Company Structure &amp; Org Chart</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1220,7 +1224,7 @@
                       name="tasks"
                       value="Hiring and Recruitment"
                     />
-                    <span>Hiring and Recruitment</span>
+                    <span>Recruitment &amp; Hiring</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1228,7 +1232,7 @@
                       name="tasks"
                       value="Employee Onboarding"
                     />
-                    <span>Employee Onboarding</span>
+                    <span>Onboarding New Employees</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1236,7 +1240,7 @@
                       name="tasks"
                       value="Attendance and Leave"
                     />
-                    <span>Attendance and Leave</span>
+                    <span>Attendance &amp; Leave Management</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1244,7 +1248,7 @@
                       name="tasks"
                       value="Payroll and Benefits"
                     />
-                    <span>Payroll and Benefits</span>
+                    <span>Payroll &amp; Benefits</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1252,7 +1256,7 @@
                       name="tasks"
                       value="Learning and Development"
                     />
-                    <span>Learning and Development</span>
+                    <span>Learning &amp; Development</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1260,7 +1264,7 @@
                       name="tasks"
                       value="Performance and Feedback"
                     />
-                    <span>Performance and Feedback</span>
+                    <span>Performance Management &amp; Feedback</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1276,7 +1280,7 @@
                       name="tasks"
                       value="HR Budgets and Expenses"
                     />
-                    <span>HR Budgets and Expenses</span>
+                    <span>HR Budgets &amp; Expenses</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1284,7 +1288,7 @@
                       name="tasks"
                       value="HR Admin and Documents"
                     />
-                    <span>HR Admin and Documents</span>
+                    <span>HR Files &amp; Documents</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1292,7 +1296,7 @@
                       name="tasks"
                       value="HR Compliance Reminders"
                     />
-                    <span>HR Compliance Reminders</span>
+                    <span>Visa, Emirates ID &amp; Contract Renewal Tracking</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1300,11 +1304,15 @@
                       name="tasks"
                       value="Employee Relations"
                     />
-                    <span>Employee Relations</span>
+                    <span>Employee Relations: complaints, warnings &amp; disputes</span>
                   </label>
                   <label class="mh-task">
-                    <input type="checkbox" name="tasks" value="Offboarding" />
-                    <span>Offboarding</span>
+                    <input
+                      type="checkbox"
+                      name="tasks"
+                      value="Offboarding"
+                    />
+                    <span>Resignations, Exits &amp; End-of-Service</span>
                   </label>
                   <label class="mh-task">
                     <input
@@ -1315,7 +1323,7 @@
                       aria-controls="mh-demo-other-wrap"
                       aria-expanded="false"
                     />
-                    <span>Other</span>
+                    <span>Something else</span>
                   </label>
                 </div>
 
@@ -1326,14 +1334,14 @@
                   style="display: none"
                 >
                   <label for="mh-demo-other">
-                    Tell us which other tasks you would like to simplify
+                    Tell us what else you need help with.
                   </label>
                   <input
                     id="mh-demo-other"
                     type="text"
                     name="other"
                     maxlength="500"
-                    placeholder="Visa expiry reminders, petty cash, shift swaps..."
+                    placeholder="For example: shift swaps, petty cash, medical insurance renewals"
                   />
                 </div>
               </fieldset>
@@ -1427,8 +1435,8 @@
       </div>
     </dialog>
 
-    <script src="config.js?v=3"></script>
-    <script src="script.js?v=3"></script>
+    <script src="config.js?v=4"></script>
+    <script src="script.js?v=4"></script>
     <!-- Loaded last on purpose: script.js sets the widget's size for the
          screen, and that has to happen before Turnstile draws it. -->
     <script
