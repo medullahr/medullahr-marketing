@@ -398,6 +398,34 @@ svg, canvas {
   box-shadow: 0 10px 28px -8px rgba(27, 43, 36, 0.28);
 }
 
+/* Outlined pill, for the second row of choices in the contact box.
+   The text is left at 16px and the height at 48px so it reads clearly
+   and stays comfortable to tap on a phone. */
+.mh-btn-outline {
+  height: auto;
+  min-height: 48px;
+  padding: 11px 24px;
+  background-color: transparent;
+  color: var(--mh-green);
+  border: 1.5px solid var(--mh-green);
+  font-size: 16px;
+  font-weight: 600;
+  white-space: normal;
+  text-align: center;
+  box-shadow: none;
+}
+
+.mh-btn-outline:hover {
+  background-color: var(--mh-white);
+  color: var(--mh-green-dark);
+  border-color: var(--mh-green-dark);
+  box-shadow: 0 8px 22px -10px rgba(27, 43, 36, 0.3);
+}
+
+.mh-cta-buttons-alt {
+  margin-top: 12px;
+}
+
 .mh-pill {
   display: inline-flex;
   align-items: center;
@@ -2140,6 +2168,17 @@ dialog.mh-dialog[open] {
 
   .mh-staff-tab {
     min-height: 44px;
+  }
+
+  /* Side by side on a wide screen, one under the other on a phone. */
+  .mh-cta-buttons-alt {
+    flex-direction: column;
+    align-self: stretch;
+    width: 100%;
+  }
+
+  .mh-cta-buttons-alt .mh-btn-outline {
+    width: 100%;
   }
 }
 

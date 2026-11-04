@@ -1,7 +1,7 @@
 const APP_SIGN_IN_URL =
   typeof MEDULLAHR_CONFIG !== "undefined" && MEDULLAHR_CONFIG.signInUrl
     ? MEDULLAHR_CONFIG.signInUrl
-    : "https://medullahr.pages.dev";
+    : "https://app.medullahr.com";
 
 const CONTACT_EMAIL =
   typeof MEDULLAHR_CONFIG !== "undefined" && MEDULLAHR_CONFIG.contactEmail
