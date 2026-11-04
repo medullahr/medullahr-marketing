@@ -1943,6 +1943,12 @@ dialog.mh-dialog[open] {
   gap: 12px;
 }
 
+/* An explicit display value outranks the browser's own [hidden] rule,
+   so anything we hide from script needs this to actually disappear. */
+[hidden] {
+  display: none !important;
+}
+
 .mh-dialog-done-mark {
   display: grid;
   place-items: center;

@@ -609,6 +609,10 @@ const CONTACT_EMAIL =
           demoFormView.hidden = false;
           demoDoneView.hidden = true;
         }
+        const reopenMailto = document.getElementById("mh-demo-mailto-fallback");
+        if (reopenMailto) {
+          reopenMailto.hidden = false;
+        }
         demoDialog.showModal();
       });
     });
@@ -697,14 +701,56 @@ const CONTACT_EMAIL =
           mailtoLink.setAttribute("href", mailtoHref);
         }
 
-        if (demoDoneText) {
-          demoDoneText.textContent = `Thank you, ${nameVal}. Your demo request details are ready for ${CONTACT_EMAIL}.`;
+        const submitBtn = demoForm.querySelector('button[type="submit"]');
+        const submitLabel = submitBtn ? submitBtn.textContent : "";
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Sending…";
         }
 
-        if (demoFormView && demoDoneView) {
-          demoFormView.hidden = true;
-          demoDoneView.hidden = false;
-        }
+        // Show the done view either way; the mailto button is only offered
+        // when the request did not reach us.
+        const doneHeading = demoDoneView
+          ? demoDoneView.querySelector("h2")
+          : null;
+
+        const showDone = (sent) => {
+          if (doneHeading) {
+            doneHeading.textContent = sent
+              ? "Request sent"
+              : "Demo request ready";
+          }
+          if (demoDoneText) {
+            demoDoneText.textContent = sent
+              ? `Thank you, ${nameVal}. Your request is with our team and we will reply to ${emailVal} shortly.`
+              : `Thank you, ${nameVal}. Your demo request details are ready for ${CONTACT_EMAIL}.`;
+          }
+          if (mailtoLink) {
+            mailtoLink.hidden = sent;
+          }
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = submitLabel;
+          }
+          if (demoFormView && demoDoneView) {
+            demoFormView.hidden = true;
+            demoDoneView.hidden = false;
+          }
+        };
+
+        fetch("/api/demo", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: nameVal,
+            email: emailVal,
+            company: companyVal,
+            size: sizeVal,
+            notes: notesVal
+          })
+        })
+          .then((res) => showDone(res.ok))
+          .catch(() => showDone(false));
       });
     }
   }
