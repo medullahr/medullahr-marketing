@@ -981,72 +981,6 @@ svg, canvas {
 }
 
 /* ---------- 3. The Solution (13 Modules) ---------- */
-.mh-modules-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  margin-bottom: 16px;
-  padding: 14px 18px;
-  border-radius: 16px;
-  background-color: var(--mh-soft);
-  border: 1px solid var(--mh-line);
-}
-
-.mh-modules-status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--mh-ink-secondary);
-}
-
-.mh-modules-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 28px;
-  height: 26px;
-  padding: 0 9px;
-  border-radius: 8px;
-  background-color: var(--mh-green);
-  color: var(--mh-white);
-  font-family: var(--mh-heading);
-  font-size: 13px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-}
-
-.mh-modules-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.mh-chip-action {
-  height: 32px;
-  padding: 0 13px;
-  border-radius: 9px;
-  font-size: 12.5px;
-  font-weight: 600;
-  background-color: var(--mh-white);
-  color: var(--mh-ink-secondary);
-  border: 1px solid var(--mh-line);
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.mh-chip-action:hover {
-  background-color: var(--mh-tint);
-  color: var(--mh-ink);
-}
-
-.mh-chip-action[data-active="true"] {
-  background-color: var(--mh-green);
-  color: var(--mh-white);
-  border-color: var(--mh-green);
-}
-
 .mh-modules-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -2394,4 +2328,151 @@ dialog.mh-dialog[open] {
 .mh-foot-legal a:hover,
 .mh-foot-legal a[aria-current="page"] {
   color: var(--mh-green);
+}
+
+/* ---------- Shorter home page ---------- */
+/* The gaps between sections were generous. These bring them in a little
+   without letting the page feel cramped. */
+.mh-section {
+  padding-top: clamp(56px, 7vw, 104px);
+}
+
+.mh-head {
+  margin-bottom: clamp(28px, 3.4vw, 42px);
+}
+
+/* Modules shown on request */
+.mh-modules-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.mh-modules-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 22px;
+  border-radius: 13px;
+  border: 1.5px solid var(--mh-line-strong);
+  background-color: var(--mh-white);
+  color: var(--mh-ink);
+  font-family: var(--mh-heading);
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.mh-modules-toggle:hover {
+  background-color: var(--mh-tint);
+  border-color: var(--mh-green);
+}
+
+.mh-modules-toggle[aria-expanded="true"] {
+  background-color: var(--mh-tint);
+  border-color: var(--mh-green);
+  color: var(--mh-green);
+}
+
+.mh-toggle-arrow {
+  transition: transform 0.25s var(--mh-ease);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.mh-modules-toggle[aria-expanded="true"] .mh-toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.mh-modules-grid:not([hidden]) {
+  margin-top: 18px;
+}
+
+.mh-module-card[hidden] {
+  display: none;
+}
+
+/* Compact "How it works" */
+.mh-step {
+  padding: 16px 18px 14px;
+}
+
+.mh-proc-panel {
+  gap: clamp(18px, 2.6vw, 36px);
+  padding: clamp(20px, 2.8vw, 32px);
+}
+
+@media (max-width: 719px) {
+  .mh-steps {
+    gap: 6px;
+  }
+
+  .mh-step {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    padding: 12px 14px;
+  }
+
+  .mh-step-bar {
+    flex-basis: 100%;
+  }
+}
+
+/* Short strips that stand in for the longer sections */
+.mh-strip-section {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 760px) {
+  .mh-strip-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.mh-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: clamp(24px, 3vw, 34px);
+  border-radius: 20px;
+  background-color: var(--mh-soft);
+  border: 1px solid var(--mh-line);
+}
+
+.mh-strip .mh-h2 {
+  font-size: clamp(21px, 2.2vw, 27px);
+}
+
+.mh-strip p {
+  color: var(--mh-ink-secondary);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* Our story page */
+.mh-story p {
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.mh-story-cta {
+  margin-top: 28px;
+}
+
+/* For Staff page: the section already carries its own top padding */
+.mh-staff-page .mh-page-back {
+  padding-top: clamp(28px, 4vw, 44px);
+}
+
+.mh-staff-page #for-staff {
+  padding-top: clamp(20px, 2.6vw, 32px);
 }

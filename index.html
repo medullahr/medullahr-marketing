@@ -6,7 +6,7 @@
     <title>MedullaHR — The brain that keeps HR running smoothly.</title>
     <meta
       name="description"
-      content="MedullaHR is a modular HR platform for companies with 10 to 200 staff in the UAE. Replace spreadsheets, WhatsApp requests, and scattered emails with 13 HR modules you switch on as needed."
+      content="HR software built in the UAE for teams that have outgrown manual HR."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
   <body>
     <a href="#main-content" class="mh-skip">Skip to content</a>
@@ -27,7 +27,7 @@
       </a>
 
       <nav class="mh-nav-links" aria-label="Main navigation">
-        <a href="#about">About</a>
+        <a href="/about.html">About</a>
         <a href="#modules">Modules</a>
         <a href="#how-it-works">How it works</a>
         <a href="#contact">Contact</a>
@@ -54,7 +54,7 @@
 
       <nav class="mh-drawer" aria-label="Mobile navigation">
         <div class="mh-drawer-inner">
-          <a href="#about">About</a>
+          <a href="/about.html">About</a>
           <a href="#modules">Modules</a>
           <a href="#how-it-works">How it works</a>
           <a href="#contact">Contact</a>
@@ -72,7 +72,7 @@
       <section id="top" class="mh-hero">
         <span class="mh-pill mh-in">
           <span class="mh-pill-dot" aria-hidden="true"></span>
-          Built for 10–200 staff companies in the UAE
+          Built in the UAE for growing teams
         </span>
 
         <h1 class="mh-h1 mh-in" style="animation-delay: 60ms">
@@ -80,10 +80,8 @@
         </h1>
 
         <p class="mh-lede mh-in" style="animation-delay: 120ms">
-          A modular HR platform for growing teams in the UAE that want to move
-          past spreadsheets, WhatsApp messages, and chasing emails. Switch on
-          the exact HR modules your company needs today, and add more when you
-          are ready.
+          HR runs on manual processes, spreadsheets, calls, email threads and a
+          good memory.
         </p>
 
         <div class="mh-hero-actions mh-in" style="animation-delay: 180ms">
@@ -214,16 +212,16 @@
       </section>
 
       <!-- 2. THE PROBLEM SECTION -->
-      <section id="about" class="mh-section">
+      <section id="problem" class="mh-section">
         <div class="mh-head mh-rv">
           <span class="mh-pill">The problem</span>
           <h2 class="mh-h2">
-            HR by spreadsheet and WhatsApp works — until your team grows.
+            HR by spreadsheet works until your team grows.
           </h2>
           <p class="mh-lede">
-            For companies with 10 to 200 staff in the UAE, manual HR quietly
-            turns into hours of hunting through chat threads, updating separate
-            trackers, and hoping no visa renewal date slips through.
+            Built in the UAE for growing companies. Manual HR quietly turns into
+            hours of hunting through chat threads, updating separate trackers,
+            and hoping no visa renewal date slips through.
           </p>
         </div>
 
@@ -268,7 +266,7 @@
             style="transition-delay: 60ms"
           >
             <div class="mh-problem-top">
-              <span class="mh-problem-tag">WhatsApp messages</span>
+              <span class="mh-problem-tag">Chat messages</span>
               <span class="mh-problem-icon" aria-hidden="true">
                 <svg
                   width="18"
@@ -293,7 +291,7 @@
             </div>
 
             <div>
-              <h3>Approvals buried in WhatsApp chats</h3>
+              <h3>Approvals buried in chat threads</h3>
               <p>
                 Staff ask for sick days, annual leave, and salary certificates
                 in chat messages. Approvals get forgotten between meetings and
@@ -364,39 +362,56 @@
           </p>
         </div>
 
-        <div class="mh-modules-toolbar mh-rv">
-          <div class="mh-modules-status">
-            <span id="mh-active-module-count" class="mh-modules-count">13</span>
-            <span
-              >of 13 modules switched on in this preview — click any card to
-              toggle</span
-            >
-          </div>
-          <div
-            class="mh-modules-actions"
-            role="group"
-            aria-label="Module selection presets"
+        <div class="mh-modules-toggles mh-rv">
+          <button
+            type="button"
+            class="mh-modules-toggle"
+            data-module-view="core"
+            aria-expanded="false"
+            aria-controls="mh-modules-panel"
           >
-            <button
-              type="button"
-              class="mh-chip-action"
-              data-module-preset="essentials"
-              data-active="false"
+            Core modules (6)
+            <svg
+              class="mh-toggle-arrow"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
             >
-              Core starter set (6)
-            </button>
-            <button
-              type="button"
-              class="mh-chip-action"
-              data-module-preset="all"
-              data-active="true"
+              <path d="M4 6l4 4 4-4"></path>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="mh-modules-toggle"
+            data-module-view="all"
+            aria-expanded="false"
+            aria-controls="mh-modules-panel"
+          >
+            All modules (13)
+            <svg
+              class="mh-toggle-arrow"
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
             >
-              All 13 modules
-            </button>
-          </div>
+              <path d="M4 6l4 4 4-4"></path>
+            </svg>
+          </button>
         </div>
 
-        <div class="mh-modules-grid">
+        <div id="mh-modules-panel" class="mh-modules-grid" hidden>
           <!-- Module 01 -->
           <button
             type="button"
@@ -828,176 +843,26 @@
         </div>
       </section>
 
-      <!-- 5. FOR STAFF SECTION -->
-      <section id="for-staff" class="mh-section">
-        <div class="mh-head mh-rv">
-          <span class="mh-pill">For staff</span>
+      <!-- 5. FOR STAFF AND OUR STORY, IN SHORT -->
+      <section id="for-staff" class="mh-section mh-strip-section">
+        <div class="mh-strip mh-rv">
           <h2 class="mh-h2">Simple for every member of your team.</h2>
-          <p class="mh-lede">
+          <p>
             When staff sign in to MedullaHR, they get a clean, straightforward
-            place to handle their own everyday HR without chasing managers on
-            WhatsApp.
+            place to handle their own everyday HR without chasing managers for
+            updates.
           </p>
+          <a href="/staff.html" class="mh-btn mh-btn-sm">See what staff get</a>
         </div>
 
-        <div class="mh-staff-split mh-rv">
-          <div
-            class="mh-staff-tabs"
-            role="tablist"
-            aria-label="What a staff member does"
-            aria-orientation="vertical"
-          >
-            <button
-              type="button"
-              role="tab"
-              aria-selected="true"
-              tabindex="0"
-              class="mh-staff-tab"
-            >
-              <span class="mh-staff-n">01</span>
-              <span class="mh-staff-t">
-                <strong>Ask for leave</strong>
-                <small>
-                  <span>
-                    Check remaining annual or sick leave days and send a request
-                    for approval in seconds.
-                  </span>
-                </small>
-              </span>
-              <svg
-                class="mh-staff-arrow"
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M3 8h10M9 4l4 4-4 4"></path>
-              </svg>
-            </button>
-
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              tabindex="-1"
-              class="mh-staff-tab"
-            >
-              <span class="mh-staff-n">02</span>
-              <span class="mh-staff-t">
-                <strong>See payslips</strong>
-                <small>
-                  <span>
-                    View and download monthly salary statements and allowance
-                    breakdowns anytime.
-                  </span>
-                </small>
-              </span>
-              <svg
-                class="mh-staff-arrow"
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M3 8h10M9 4l4 4-4 4"></path>
-              </svg>
-            </button>
-
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              tabindex="-1"
-              class="mh-staff-tab"
-            >
-              <span class="mh-staff-n">03</span>
-              <span class="mh-staff-t">
-                <strong>View documents</strong>
-                <small>
-                  <span>
-                    Access employment contracts, visa and Emirates ID records,
-                    and company policies in one place.
-                  </span>
-                </small>
-              </span>
-              <svg
-                class="mh-staff-arrow"
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M3 8h10M9 4l4 4-4 4"></path>
-              </svg>
-            </button>
-          </div>
-
-          <div
-            id="mh-staff-panel"
-            class="mh-staff-panel"
-            role="tabpanel"
-            aria-label="Ask for leave"
-          >
-            <div class="mh-staff-stage">
-              <div id="mh-staff-card-container"></div>
-              <div
-                style="
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  flex-wrap: wrap;
-                  gap: 10px;
-                  font-size: 13px;
-                  color: var(--mh-ink-secondary);
-                "
-              >
-                <span>Already have a staff account?</span>
-                <a
-                  href="https://app.medullahr.com"
-                  data-signin-link
-                  style="
-                    font-weight: 600;
-                    color: var(--mh-green);
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 6px;
-                  "
-                >
-                  Sign in to the staff portal
-                  <svg
-                    width="13"
-                    height="13"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M3 8h10M9 4l4 4-4 4"></path>
-                  </svg>
-                </a>
-              </div>
-            </div>
-
-            <ul id="mh-staff-points" class="mh-staff-points"></ul>
-          </div>
+        <div class="mh-strip mh-rv">
+          <h2 class="mh-h2">Our story</h2>
+          <p>
+            In our brains, the medulla is the quiet part that keeps our hearts
+            beating and our lungs breathing, all day, without us ever thinking
+            about it.
+          </p>
+          <a href="/about.html" class="mh-btn mh-btn-sm">Read our story</a>
         </div>
       </section>
 
@@ -1067,15 +932,15 @@
             “The brain that keeps HR running smoothly.”
           </p>
           <p class="mh-foot-desc">
-            Modular HR platform for companies with 10 to 200 staff in the UAE.
+            Built in the UAE for growing companies.
           </p>
         </div>
 
         <nav class="mh-foot-col" aria-label="Footer navigation">
           <p class="mh-foot-col-title">Navigation</p>
-          <a href="#about">About</a>
+          <a href="/about.html">About</a>
           <a href="#modules">Modules</a>
-          <a href="#for-staff">For Staff</a>
+          <a href="/staff.html">For Staff</a>
           <a href="#contact">Contact</a>
         </nav>
 
@@ -1234,6 +1099,7 @@
                   <option value="31–75 staff">31–75 staff</option>
                   <option value="76–150 staff">76–150 staff</option>
                   <option value="151–200 staff">151–200 staff</option>
+                  <option value="200+ staff">200+ staff</option>
                   <option value="Other">Other</option>
                 </select>
               </label>
@@ -1468,8 +1334,8 @@
       </div>
     </dialog>
 
-    <script src="config.js?v=7"></script>
-    <script src="script.js?v=7"></script>
+    <script src="config.js?v=8"></script>
+    <script src="script.js?v=8"></script>
     <!-- Loaded last on purpose: script.js sets the widget's size for the
          screen, and that has to happen before Turnstile draws it. -->
     <script

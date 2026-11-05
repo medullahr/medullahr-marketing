@@ -262,57 +262,60 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
     });
   });
 
-  // 6. Interactive 13 Modules Switchboard
+  // 6. Modules list, shown on request
+  // Both panels start closed on every visit. Nothing is remembered between
+  // visits on purpose, so the page always opens at its shortest.
   const moduleCards = Array.from(document.querySelectorAll(".mh-module-card"));
-  const moduleCountEl = document.getElementById("mh-active-module-count");
-  const presetButtons = document.querySelectorAll("[data-module-preset]");
+  const modulePanel = document.getElementById("mh-modules-panel");
+  const moduleToggles = Array.from(
+    document.querySelectorAll("[data-module-view]")
+  );
 
-  const updateModuleCount = () => {
-    let activeCount = 0;
-    moduleCards.forEach((card) => {
-      const isPressed = card.getAttribute("aria-pressed") === "true";
-      if (isPressed) activeCount++;
-      const statusText = card.querySelector(".mh-module-state-text");
-      if (statusText) {
-        statusText.textContent = isPressed ? "Switched on" : "Switch on";
-      }
+  // Core starter set: Org Chart (0), Employee Onboarding (2), Attendance &
+  // Leave (3), Payroll & Benefits (4), HR Admin & Documents (9), HR
+  // Compliance Reminders (10)
+  const coreIndices = [0, 2, 3, 4, 9, 10];
+  let openModuleView = "";
+
+  const showModuleView = (view) => {
+    openModuleView = view;
+    moduleToggles.forEach((btn) => {
+      const isOpen = Boolean(view) && btn.dataset.moduleView === view;
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
-    if (moduleCountEl) {
-      moduleCountEl.textContent = String(activeCount);
+
+    if (!modulePanel) return;
+
+    if (!view) {
+      modulePanel.hidden = true;
+      return;
     }
+
+    moduleCards.forEach((card, index) => {
+      card.hidden = view === "core" && !coreIndices.includes(index);
+    });
+    modulePanel.hidden = false;
   };
+
+  moduleToggles.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const view = btn.dataset.moduleView;
+      showModuleView(openModuleView === view ? "" : view);
+    });
+  });
 
   moduleCards.forEach((card) => {
     card.addEventListener("click", () => {
       const current = card.getAttribute("aria-pressed") === "true";
       card.setAttribute("aria-pressed", current ? "false" : "true");
-      presetButtons.forEach((btn) => (btn.dataset.active = "false"));
-      updateModuleCount();
+      const statusText = card.querySelector(".mh-module-state-text");
+      if (statusText) {
+        statusText.textContent = current ? "Switch on" : "Switched on";
+      }
     });
   });
 
-  presetButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const preset = btn.getAttribute("data-module-preset");
-      presetButtons.forEach((b) => (b.dataset.active = b === btn ? "true" : "false"));
-
-      moduleCards.forEach((card, index) => {
-        if (preset === "all") {
-          card.setAttribute("aria-pressed", "true");
-        } else if (preset === "essentials") {
-          // Core starter set: Org Chart (0), Employee Onboarding (2), Attendance & Leave (3), Payroll & Benefits (4), HR Admin & Documents (9), HR Compliance Reminders (10)
-          const coreIndices = [0, 2, 3, 4, 9, 10];
-          card.setAttribute(
-            "aria-pressed",
-            coreIndices.includes(index) ? "true" : "false"
-          );
-        }
-      });
-      updateModuleCount();
-    });
-  });
-
-  updateModuleCount();
+  showModuleView("");
 
   // 7. Interactive 3-Step Process ("How it works")
   const stepData = [
@@ -356,7 +359,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
       num: "Step 03",
       title: "Your staff sign in",
       lead: "Every employee gets their own clean login to request leave, check balances, view payslips, and access documents.",
-      desc: "No more WhatsApp messages asking how many leave days are left or emails chasing salary certificates. Managers approve requests in one click.",
+      desc: "No more chat messages asking how many leave days are left or emails chasing salary certificates. Managers approve requests in one click.",
       checks: [
         "Self-service staff portal",
         "One-click manager approvals",
@@ -496,7 +499,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
       points: [
         "Every monthly payslip is stored securely in the employee's account",
         "Clear breakdown of basic pay, housing, transport, and allowances",
-        "No more emailing individual PDFs or answering payroll queries on WhatsApp"
+        "No more emailing individual PDFs or answering payroll queries in chat"
       ]
     },
     {
