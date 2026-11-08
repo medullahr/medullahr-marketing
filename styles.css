@@ -2623,3 +2623,34 @@ dialog.mh-dialog[open] {
   align-items: center;
   text-align: center;
 }
+
+/* Not found page */
+.mh-notfound {
+  display: grid;
+  place-items: center;
+  min-height: 52vh;
+  padding-top: clamp(40px, 7vw, 90px);
+}
+
+.mh-notfound-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 34rem;
+  text-align: center;
+}
+
+.mh-notfound-inner p {
+  color: var(--mh-ink-secondary);
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.mh-notfound-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
