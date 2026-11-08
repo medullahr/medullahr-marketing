@@ -2270,10 +2270,6 @@ svg, canvas {
   line-height: 1.75;
 }
 
-.mh-story-cta {
-  margin-top: 28px;
-}
-
 /* For Staff page: the section already carries its own top padding */
 .mh-staff-page .mh-page-back {
   padding-top: clamp(28px, 4vw, 44px);
@@ -2319,13 +2315,6 @@ svg, canvas {
 
 .mh-problem-text[hidden] {
   display: none;
-}
-
-/* The contact box now leads with one primary button and a row of
-   secondary ones underneath. */
-.mh-contact-side .mh-btn-outline {
-  font-size: 15px;
-  padding: 10px 20px;
 }
 
 /* The current page in the main navigation keeps the hover underline on. */
@@ -2471,18 +2460,71 @@ svg, canvas {
   color: var(--mh-ink);
 }
 
+/* Stacked on a phone and a tablet, with the words first and the form
+   below them; two columns from 900px, roughly 40 and 60 per cent. */
 .mh-contact-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 18px;
+  gap: clamp(28px, 4vw, 44px);
   margin-top: 26px;
+  align-items: start;
 }
 
 @media (min-width: 900px) {
   .mh-contact-grid {
-    grid-template-columns: minmax(0, 1fr) 260px;
-    align-items: start;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
   }
+}
+
+.mh-contact-intro {
+  min-width: 0;
+}
+
+/* The shared heading block centres itself; here it reads down the left. */
+.mh-contact-intro .mh-head {
+  margin-bottom: clamp(26px, 3.2vw, 36px);
+}
+
+.mh-contact-intro .mh-lede {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Plain rows, no boxes and no rules between them: a small label with the
+   detail underneath it. */
+.mh-contact-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.6vw, 28px);
+}
+
+.mh-contact-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--mh-muted);
+}
+
+.mh-contact-list a {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: var(--mh-heading);
+  font-size: clamp(16px, 1.6vw, 18px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--mh-ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.mh-contact-list a:hover,
+.mh-contact-list a:focus-visible {
+  color: var(--mh-green);
+  border-bottom-color: currentColor;
 }
 
 .mh-contact-card {
@@ -2492,21 +2534,6 @@ svg, canvas {
   background-color: var(--mh-white);
   border: 1px solid var(--mh-line-strong);
   box-shadow: var(--mh-shadow-sm);
-}
-
-.mh-contact-side {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-width: 0;
-}
-
-.mh-contact-side .mh-btn-outline {
-  width: 100%;
-  justify-content: center;
-  text-align: center;
-  font-size: 15px;
-  padding: 12px 18px;
 }
 
 /* Anchors on the Solution page clear the sticky header. */

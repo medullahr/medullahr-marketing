@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=14" />
+    <link rel="stylesheet" href="styles.css?v=15" />
   </head>
   <body>
     <a href="#main-content" class="mh-skip">Skip to content</a>
@@ -81,26 +81,55 @@
           need and add more when you're ready. Built in the UAE, for teams
           that have outgrown manual HR, whether you have 8 employees or 800.
         </p>
-
-        <p class="mh-story-cta">
-          <a class="mh-btn" href="/about#contact">Ask for a demo</a>
-        </p>
       </article>
 
       <section id="contact" class="mh-contact">
         <div class="mh-contact-inner">
-          <div class="mh-head mh-rv">
-            <span class="mh-pill">Contact</span>
-            <h2 class="mh-h2">Ready when you are</h2>
-            <p class="mh-contact-sub">See how MedullaHR fits your company.</p>
-            <p class="mh-lede">
-              Tell us which HR tasks take up your week, and we'll walk you
-              through a live demo with the modules your team needs.
-            </p>
-          </div>
+          <div class="mh-contact-grid">
+            <div class="mh-contact-intro mh-rv">
+              <div class="mh-head mh-head-left">
+                <span class="mh-pill">Contact</span>
+                <h2 class="mh-h2">Ready when you are</h2>
+                <p class="mh-contact-sub">
+                  See how MedullaHR fits your company.
+                </p>
+                <p class="mh-lede">
+                  Tell us which HR tasks take up your week, and we'll walk you
+                  through a live demo with the modules your team needs.
+                </p>
+              </div>
 
-          <div class="mh-contact-grid mh-rv">
-            <div class="mh-contact-card">
+              <ul class="mh-contact-list">
+                <li>
+                  <span class="mh-contact-label">Email</span>
+                  <a
+                    href="mailto:hello@medullahr.com"
+                    aria-label="Email MedullaHR"
+                  >
+                    hello@medullahr.com
+                  </a>
+                </li>
+                <li>
+                  <span class="mh-contact-label">WhatsApp</span>
+                  <a
+                    href="https://wa.me/971521986968"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Chat with MedullaHR on WhatsApp"
+                  >
+                    Prefer WhatsApp? Chat with us
+                  </a>
+                </li>
+                <li>
+                  <span class="mh-contact-label">Call</span>
+                  <a href="tel:+971521986968" aria-label="Call MedullaHR">
+                    +971 52 198 6968
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="mh-contact-card mh-rv">
               <div id="mh-demo-form-view">
                 <form id="mh-demo-form" novalidate>
                   <div class="mh-form-grid">
@@ -144,7 +173,8 @@
                     <label class="mh-field">
                       <span>Number of staff</span>
                       <select id="mh-demo-size" name="size">
-                        <option value="10–30 staff">10–30 staff</option>
+                        <option value="1–9 staff">1–9 staff</option>
+                        <option value="10–30 staff" selected>10–30 staff</option>
                         <option value="31–75 staff">31–75 staff</option>
                         <option value="76–150 staff">76–150 staff</option>
                         <option value="151–200 staff">151–200 staff</option>
@@ -328,7 +358,6 @@
                   </div>
 
                   <div class="mh-form-foot">
-                    <span>Or email <a href="mailto:hello@medullahr.com" style="text-decoration:underline;color:var(--mh-green);font-weight:600;">hello@medullahr.com</a></span>
                     <button type="submit" class="mh-btn">Request demo</button>
                   </div>
                 </form>
@@ -374,32 +403,6 @@
               </div>
             </div>
             </div>
-
-            <aside class="mh-contact-side">
-              <a
-                href="mailto:hello@medullahr.com"
-                class="mh-btn mh-btn-outline"
-                aria-label="Email MedullaHR"
-              >
-                Email us
-              </a>
-              <a
-                href="https://wa.me/971521986968"
-                class="mh-btn mh-btn-outline"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Chat with MedullaHR on WhatsApp"
-              >
-                Prefer WhatsApp? Chat with us
-              </a>
-              <a
-                href="tel:+971521986968"
-                class="mh-btn mh-btn-outline"
-                aria-label="Call MedullaHR"
-              >
-                Call +971 52 198 6968
-              </a>
-            </aside>
           </div>
         </div>
       </section>
@@ -457,8 +460,8 @@
       </div>
     </footer>
 
-    <script src="config.js?v=14"></script>
-    <script src="script.js?v=14"></script>
+    <script src="config.js?v=15"></script>
+    <script src="script.js?v=15"></script>
     <!-- Loaded last on purpose: script.js sets the widget's size for the
          screen, and that has to happen before Turnstile draws it. -->
     <script
