@@ -15,3 +15,21 @@
 
 /config.js
   Cache-Control: public, max-age=0, must-revalidate
+
+# The icons change far less often than the stylesheet, and they carry no
+# version tag, so a day in the browser cache is enough. Not immutable, so
+# a replacement icon still gets picked up the next day.
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
+/favicon.svg
+  Cache-Control: public, max-age=86400
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=86400
+
+/icon-192.png
+  Cache-Control: public, max-age=86400
+
+/icon-512.png
+  Cache-Control: public, max-age=86400
