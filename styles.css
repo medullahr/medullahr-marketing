@@ -930,35 +930,6 @@ svg, canvas {
   color: var(--mh-muted);
 }
 
-.mh-problem-bridge {
-  margin-top: 8px;
-  padding: clamp(22px, 3vw, 32px);
-  border-radius: 20px;
-  background-color: var(--mh-tint);
-  border: 1px solid var(--mh-line-strong);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-@media (min-width: 760px) {
-  .mh-problem-bridge {
-    flex-direction: row;
-    align-items: center;
-  }
-}
-
-.mh-problem-bridge p {
-  font-family: var(--mh-heading);
-  font-size: clamp(16px, 1.6vw, 19px);
-  font-weight: 500;
-  color: var(--mh-ink);
-  letter-spacing: -0.015em;
-  max-width: 56ch;
-}
-
 /* ---------- 3. The Solution (13 Modules) ---------- */
 .mh-modules-grid {
   display: grid;
@@ -2370,10 +2341,9 @@ svg, canvas {
   color: var(--mh-green);
 }
 
-/* Short solution card on the home page, in place of the two sections that
-   now live on their own page. */
-/* Slim solution card: heading and button side by side once there is
-   room, stacked on a phone. */
+/* Slim solution card on the home page: the tag sits above, then the
+   heading and the button, side by side once there is room and stacked
+   on a phone. */
 .mh-solution-card {
   display: flex;
   flex-direction: column;
@@ -2386,9 +2356,17 @@ svg, canvas {
   box-shadow: var(--mh-shadow-lg);
 }
 
+.mh-solution-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  width: 100%;
+}
+
 .mh-solution-card .mh-h2 {
   font-size: clamp(21px, 2.3vw, 29px);
-  max-width: 22ch;
+  max-width: 34ch;
   text-wrap: balance;
 }
 
@@ -2397,19 +2375,12 @@ svg, canvas {
 }
 
 @media (min-width: 760px) {
-  .mh-solution-card {
+  .mh-solution-row {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 28px;
   }
-}
-
-/* The arrow between the steps: pointing down while they are stacked. */
-@media (min-width: 720px) {
-
-
-  /* Side by side the arrow turns to point across instead of down. */
 }
 
 /* Closing block on the solution page spans the full width. */
