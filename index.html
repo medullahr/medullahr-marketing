@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <link rel="stylesheet" href="styles.css?v=11" />
   </head>
   <body>
     <a href="#main-content" class="mh-skip">Skip to content</a>
@@ -28,8 +28,7 @@
 
       <nav class="mh-nav-links" aria-label="Main navigation">
         <a href="/about.html">About</a>
-        <a href="#modules">Modules</a>
-        <a href="#how-it-works">How it works</a>
+        <a href="/solution.html">Solution</a>
         <a href="#contact">Contact</a>
       </nav>
 
@@ -55,8 +54,7 @@
       <nav class="mh-drawer" aria-label="Mobile navigation">
         <div class="mh-drawer-inner">
           <a href="/about.html">About</a>
-          <a href="#modules">Modules</a>
-          <a href="#how-it-works">How it works</a>
+          <a href="/solution.html">Solution</a>
           <a href="#contact">Contact</a>
           <div class="mh-drawer-cta">
             <button type="button" class="mh-btn" data-open-demo>
@@ -87,7 +85,7 @@
           <button type="button" class="mh-btn" data-open-demo>
             Ask for a demo
           </button>
-          <a href="#modules" class="mh-btn mh-btn-soft">Explore 13 modules</a>
+          <a href="/solution.html" class="mh-btn mh-btn-soft">Explore 13 modules</a>
         </div>
 
         <div class="mh-hero-stage mh-in" style="animation-delay: 240ms">
@@ -404,456 +402,29 @@
           <p>
             MedullaHR replaces the hassle with one calm, structured system.
           </p>
-          <a href="#modules" class="mh-btn mh-btn-sm">See all 13 modules</a>
+          <a href="/solution.html" class="mh-btn mh-btn-sm">See all 13 modules</a>
         </div>
       </section>
 
-      <!-- 3. THE SOLUTION (13 MODULES) -->
-      <section id="modules" class="mh-section">
-        <div class="mh-head mh-rv">
+      <!-- 3. THE SOLUTION, IN SHORT -->
+      <section id="solution" class="mh-section">
+        <div class="mh-solution-card mh-rv">
           <span class="mh-pill">The solution</span>
           <h2 class="mh-h2">
             13 HR modules. Switch on what you need, when you need it.
           </h2>
-          <p class="mh-lede">
-            Start with what your team needs today, like Attendance and Leave, HR
-            Admin and Documents, or Payroll and Benefits. Switch on more
-            whenever you're ready.
-          </p>
-        </div>
 
-        <div class="mh-modules-toggles mh-rv">
-          <button
-            type="button"
-            class="mh-modules-toggle"
-            data-module-view="core"
-            aria-expanded="false"
-            aria-controls="mh-modules-panel"
-          >
-            Core modules (6)
-            <svg
-              class="mh-toggle-arrow"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4 6l4 4 4-4"></path>
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="mh-modules-toggle"
-            data-module-view="all"
-            aria-expanded="false"
-            aria-controls="mh-modules-panel"
-          >
-            All modules (13)
-            <svg
-              class="mh-toggle-arrow"
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4 6l4 4 4-4"></path>
-            </svg>
-          </button>
-        </div>
+          <ol class="mh-solution-steps">
+            <li>We set up your company</li>
+            <li>You add your staff</li>
+            <li>Your staff sign in</li>
+          </ol>
 
-        <div id="mh-modules-panel" class="mh-modules-grid" hidden>
-          <!-- Module 01 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">01</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Core</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Org Chart</h3>
-              <p>
-                See your company structure, departments, and reporting lines at
-                a glance.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 02 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">02</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Add when ready</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Hiring and Recruitment</h3>
-              <p>
-                Track open roles, candidates, interview notes, and offer stages
-                without losing CVs in email threads.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 03 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">03</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Core</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Employee Onboarding</h3>
-              <p>
-                Give new joiners a clear checklist for documents, equipment, and
-                first-week tasks before day one.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 04 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">04</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Core</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Attendance and Leave</h3>
-              <p>
-                Manage annual, sick, and special leave with clear balances,
-                one-click approvals, and a shared team calendar.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 05 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">05</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Core</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Payroll and Benefits</h3>
-              <p>
-                Organise basic salaries, housing and transport allowances,
-                benefits, and monthly payslips in one place.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 06 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">06</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Add when ready</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Learning and Development</h3>
-              <p>
-                Record staff training courses, certifications, and skill
-                development across every department.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 07 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">07</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Add when ready</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Performance and Feedback</h3>
-              <p>
-                Run structured probation reviews, goal check-ins, and regular
-                performance appraisals without paperwork.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 08 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">08</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Add when ready</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Employee Engagement</h3>
-              <p>
-                Share company announcements, recognise milestones, and gather
-                simple pulse feedback from your team.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 09 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">09</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Add when ready</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>HR Budgets and Expenses</h3>
-              <p>
-                Review staff expense claims, receipts, and HR-related costs with
-                clear approval trails.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 10 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">10</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Core</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>HR Admin and Documents</h3>
-              <p>
-                Store employment contracts, offer letters, passport copies, and
-                company policies securely in one vault.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 11 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">11</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Core</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>HR Compliance Reminders</h3>
-              <p>
-                Get timely alerts before UAE residency visas, Emirates IDs,
-                labour cards, or passports expire.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 12 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">12</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Add when ready</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Employee Relations</h3>
-              <p>
-                Keep confidential, organised records of workplace requests,
-                formal notes, and resolution steps.
-              </p>
-            </div>
-          </button>
-
-          <!-- Module 13 -->
-          <button
-            type="button"
-            class="mh-module-card mh-rv"
-            aria-pressed="true"
-          >
-            <div class="mh-module-head">
-              <span class="mh-module-num">13</span>
-              <span class="mh-module-toggle">
-                <span class="mh-module-state-text">Add when ready</span>
-                <span class="mh-switch" aria-hidden="true"></span>
-              </span>
-            </div>
-            <div class="mh-module-body">
-              <h3>Offboarding</h3>
-              <p>
-                Handle handovers, asset return checklists, exit clearances, and
-                final settlement steps smoothly when someone leaves.
-              </p>
-            </div>
-          </button>
+          <a href="/solution.html" class="mh-btn">Explore the solution</a>
         </div>
       </section>
 
-      <!-- 4. HOW IT WORKS (3 STEPS) -->
-      <section id="how-it-works" class="mh-section">
-        <div class="mh-head mh-rv">
-          <span class="mh-pill">How it works</span>
-          <h2 class="mh-h2">Up and running in three simple steps.</h2>
-          <p class="mh-lede">
-            You do not need an IT department to launch MedullaHR. We handle the
-            initial setup so your team can start using it right away.
-          </p>
-        </div>
-
-        <div class="mh-proc mh-rv">
-          <div class="mh-steps" role="group" aria-label="Three onboarding steps">
-            <button
-              type="button"
-              class="mh-step"
-              data-on="true"
-              aria-pressed="true"
-            >
-              <span class="mh-step-kicker">Step 01</span>
-              <strong>We set up your company</strong>
-              <span class="mh-step-bar" aria-hidden="true">
-                <i data-run="true"></i>
-              </span>
-            </button>
-
-            <button
-              type="button"
-              class="mh-step"
-              data-on="false"
-              aria-pressed="false"
-            >
-              <span class="mh-step-kicker">Step 02</span>
-              <strong>You add your staff</strong>
-              <span class="mh-step-bar" aria-hidden="true">
-                <i data-run="false"></i>
-              </span>
-            </button>
-
-            <button
-              type="button"
-              class="mh-step"
-              data-on="false"
-              aria-pressed="false"
-            >
-              <span class="mh-step-kicker">Step 03</span>
-              <strong>Your staff sign in</strong>
-              <span class="mh-step-bar" aria-hidden="true">
-                <i data-run="false"></i>
-              </span>
-            </button>
-          </div>
-
-          <div class="mh-proc-panel" aria-live="polite">
-            <div class="mh-proc-copy">
-              <span id="mh-proc-num" class="mh-proc-num">
-                Step 01. We set up your company
-              </span>
-              <h3 id="mh-proc-lead" class="mh-proc-lead">
-                We configure your UAE company profile, working week, leave
-                policies, and the exact HR modules you want switched on.
-              </h3>
-              <p id="mh-proc-desc" class="mh-proc-desc">
-                No complex setup screens or blank templates to figure out on
-                your own. Your account arrives structured around how your
-                business actually operates.
-              </p>
-            </div>
-
-            <div class="mh-proc-visual">
-              <div class="mh-proc-visual-head">
-                <span id="mh-proc-vis-title">Company Configuration</span>
-                <span id="mh-proc-vis-badge" class="mh-status-pill">Ready</span>
-              </div>
-              <div id="mh-proc-vis-rows" class="mh-proc-visual-rows">
-                <div class="mh-proc-row">
-                  <span>Working week &amp; leave policy</span>
-                  <span>Configured</span>
-                </div>
-                <div class="mh-proc-row">
-                  <span>Active HR modules</span>
-                  <span>Switched on</span>
-                </div>
-                <div class="mh-proc-row">
-                  <span>Document expiry alerts</span>
-                  <span>Enabled</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. FOR STAFF AND OUR STORY, IN SHORT -->
+      <!-- 4. FOR STAFF AND OUR STORY, IN SHORT -->
       <section id="for-staff" class="mh-section mh-strip-section">
         <div class="mh-strip mh-rv">
           <h2 class="mh-h2">Simple for every member of your team.</h2>
@@ -875,7 +446,7 @@
         </div>
       </section>
 
-      <!-- 6. DEMO CALL TO ACTION -->
+      <!-- 5. DEMO CALL TO ACTION -->
       <section id="contact" class="mh-cta-wrap">
         <div class="mh-cta-box mh-rv">
           <canvas id="mh-cta-canvas" aria-hidden="true"></canvas>
@@ -926,7 +497,7 @@
       </section>
     </main>
 
-    <!-- 7. FOOTER -->
+    <!-- 6. FOOTER -->
     <footer class="mh-footer">
       <div class="mh-foot-top">
         <div class="mh-foot-brand">
@@ -942,7 +513,7 @@
         <nav class="mh-foot-col" aria-label="Footer navigation">
           <p class="mh-foot-col-title">Navigation</p>
           <a href="/about.html">About</a>
-          <a href="#modules">Modules</a>
+          <a href="/solution.html">Solution</a>
           <a href="/staff.html">For Staff</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -1337,8 +908,8 @@
       </div>
     </dialog>
 
-    <script src="config.js?v=10"></script>
-    <script src="script.js?v=10"></script>
+    <script src="config.js?v=11"></script>
+    <script src="script.js?v=11"></script>
     <!-- Loaded last on purpose: script.js sets the widget's size for the
          screen, and that has to happen before Turnstile draws it. -->
     <script

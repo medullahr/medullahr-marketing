@@ -2504,3 +2504,122 @@ dialog.mh-dialog[open] {
   font-size: 15px;
   padding: 10px 20px;
 }
+
+/* The current page in the main navigation keeps the hover underline on. */
+.mh-nav-links a[aria-current="page"] {
+  color: var(--mh-ink);
+}
+
+.mh-nav-links a[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+.mh-drawer-inner a[aria-current="page"] {
+  color: var(--mh-green);
+}
+
+/* Short solution card on the home page, in place of the two sections that
+   now live on their own page. */
+.mh-solution-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: clamp(26px, 3.4vw, 42px);
+  border-radius: 24px;
+  border: 1px solid var(--mh-line-strong);
+  background: linear-gradient(155deg, var(--mh-tint) 0%, #D3E9DE 52%, #C0DFD0 100%);
+  box-shadow: var(--mh-shadow-lg);
+}
+
+.mh-solution-card .mh-h2 {
+  font-size: clamp(22px, 2.6vw, 32px);
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+.mh-solution-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin: 2px 0 6px;
+  counter-reset: mh-sol-step;
+}
+
+.mh-solution-steps li {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 16px;
+  border-radius: 14px;
+  background-color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mh-ink);
+  overflow-wrap: anywhere;
+}
+
+/* The arrow between the steps: pointing down while they are stacked. */
+.mh-solution-steps li + li::before {
+  content: "";
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-right: 1.8px solid var(--mh-green);
+  border-bottom: 1.8px solid var(--mh-green);
+  transform: translateX(-50%) rotate(45deg);
+  opacity: 0.55;
+}
+
+.mh-solution-steps li::after {
+  counter-increment: mh-sol-step;
+  content: counter(mh-sol-step);
+  order: -1;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--mh-green);
+  color: var(--mh-white);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+@media (min-width: 720px) {
+  .mh-solution-steps {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 30px;
+  }
+
+  .mh-solution-steps li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  /* Side by side the arrow turns to point across instead of down. */
+  .mh-solution-steps li + li::before {
+    top: 50%;
+    left: -20px;
+    border-right: 1.8px solid var(--mh-green);
+    border-bottom: 1.8px solid var(--mh-green);
+    transform: translateY(-50%) rotate(-45deg);
+  }
+}
+
+/* Closing block on the solution page spans the full width. */
+.mh-solution-close {
+  grid-template-columns: 1fr;
+}
+
+.mh-solution-close .mh-strip {
+  align-items: center;
+  text-align: center;
+}

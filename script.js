@@ -380,7 +380,6 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
   const procNum = document.getElementById("mh-proc-num");
   const procLead = document.getElementById("mh-proc-lead");
   const procDesc = document.getElementById("mh-proc-desc");
-  const procChecks = document.getElementById("mh-proc-checks");
   const procVisTitle = document.getElementById("mh-proc-vis-title");
   const procVisBadge = document.getElementById("mh-proc-vis-badge");
   const procVisRows = document.getElementById("mh-proc-vis-rows");
