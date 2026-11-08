@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=15" />
+    <link rel="stylesheet" href="styles.css?v=16" />
   </head>
   <body>
     <a href="#main-content" class="mh-skip">Skip to content</a>
@@ -59,29 +59,46 @@
       </nav>
     </header>
 
-    <main id="main-content" class="mh-legal">
-      <article class="mh-legal-inner mh-story">
-        <a class="mh-legal-back" href="/">
-          <span aria-hidden="true">&larr;</span> Back to home
-        </a>
+    <main id="main-content" class="mh-about">
+      <section class="mh-about-top">
+        <div class="mh-about-inner">
+          <a class="mh-legal-back" href="/">
+            <span aria-hidden="true">&larr;</span> Back to home
+          </a>
 
-        <h1>Our story</h1>
+          <span class="mh-pill">About</span>
+          <h1 class="mh-about-title">Our story</h1>
 
-        <p>
-          In our brains, the medulla is the quiet part that keeps our hearts
-          beating and our lungs breathing, all day, without us ever thinking
-          about it.
-        </p>
+          <div class="mh-about-statement">
+            <div class="mh-about-words">
+              <p>
+                In our brains, the medulla is the quiet part that keeps our
+                hearts beating and our lungs breathing, all day, without us
+                ever thinking about it.
+              </p>
 
-        <p>We thought HR should work the same way.</p>
+              <p>We thought HR should work the same way.</p>
+            </div>
 
-        <p>
-          Big enterprise HR systems can be heavy and hard to navigate.
-          MedullaHR is built to be simple and intuitive: start with what you
-          need and add more when you're ready. Built in the UAE, for teams
-          that have outgrown manual HR, whether you have 8 employees or 800.
-        </p>
-      </article>
+            <div class="mh-about-pulse" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+
+          <div class="mh-about-card">
+            <p>
+              Big enterprise HR systems can be heavy and hard to navigate.
+              MedullaHR is built to be simple and intuitive: start with what
+              you need and add more when you're ready. Built in the UAE, for
+              teams that have outgrown manual HR, whether you have 8 employees
+              or 800.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section id="contact" class="mh-contact">
         <div class="mh-contact-inner">
@@ -159,6 +176,42 @@
                       <span id="mh-err-email" class="mh-field-err"></span>
                     </label>
 
+                    <div class="mh-field mh-span-2">
+                      <label for="mh-demo-mobile">Mobile number</label>
+                      <div class="mh-phone">
+                        <select
+                          id="mh-demo-dial"
+                          name="dial"
+                          aria-label="Country dialling code"
+                        >
+                          <option value="+971" selected>+971 UAE</option>
+                          <option value="+966">+966 Saudi Arabia</option>
+                          <option value="+968">+968 Oman</option>
+                          <option value="+973">+973 Bahrain</option>
+                          <option value="+974">+974 Qatar</option>
+                          <option value="+965">+965 Kuwait</option>
+                          <option value="+20">+20 Egypt</option>
+                          <option value="+91">+91 India</option>
+                          <option value="+92">+92 Pakistan</option>
+                          <option value="+63">+63 Philippines</option>
+                          <option value="+234">+234 Nigeria</option>
+                          <option value="+44">+44 UK</option>
+                          <option value="+1">+1 US and Canada</option>
+                        </select>
+                        <input
+                          id="mh-demo-mobile"
+                          type="tel"
+                          name="mobile"
+                          inputmode="numeric"
+                          autocomplete="tel-national"
+                          maxlength="9"
+                          placeholder="521234567"
+                          required
+                        />
+                      </div>
+                      <span id="mh-err-mobile" class="mh-field-err"></span>
+                    </div>
+
                     <label class="mh-field">
                       <span>Company name</span>
                       <input
@@ -173,8 +226,8 @@
                     <label class="mh-field">
                       <span>Number of staff</span>
                       <select id="mh-demo-size" name="size">
-                        <option value="1–9 staff">1–9 staff</option>
-                        <option value="10–30 staff" selected>10–30 staff</option>
+                        <option value="1–9 staff" selected>1–9 staff</option>
+                        <option value="10–30 staff">10–30 staff</option>
                         <option value="31–75 staff">31–75 staff</option>
                         <option value="76–150 staff">76–150 staff</option>
                         <option value="151–200 staff">151–200 staff</option>
@@ -460,8 +513,8 @@
       </div>
     </footer>
 
-    <script src="config.js?v=15"></script>
-    <script src="script.js?v=15"></script>
+    <script src="config.js?v=16"></script>
+    <script src="script.js?v=16"></script>
     <!-- Loaded last on purpose: script.js sets the widget's size for the
          screen, and that has to happen before Turnstile draws it. -->
     <script

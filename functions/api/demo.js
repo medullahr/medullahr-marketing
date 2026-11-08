@@ -102,6 +102,63 @@ const MAX_TASKS = 20;
 const MAX_TASK_LENGTH = 80;
 const MAX_OTHER_LENGTH = 500;
 
+// Digits expected after the dialling code, with no trunk zero. This has
+// to agree with the table in the page script.
+const MOBILE_RULES = {
+  "+971": { digits: 9, startsWith: "5" },
+  "+966": { digits: 9 },
+  "+968": { digits: 8 },
+  "+973": { digits: 8 },
+  "+974": { digits: 8 },
+  "+965": { digits: 8 },
+  "+20": { digits: 10 },
+  "+91": { digits: 10 },
+  "+92": { digits: 10 },
+  "+63": { digits: 10 },
+  "+234": { digits: 10 },
+  "+44": { digits: 10 },
+  "+1": { digits: 10 }
+};
+
+// The page strips these already; doing it again means a request built by
+// hand is held to the same shape.
+function cleanDigits(value, max) {
+  let digits = clean(value, max).replace(/\D+/g, "");
+  while (digits.charAt(0) === "0") {
+    digits = digits.slice(1);
+  }
+  return digits;
+}
+
+function mobileIsValid(code, digits) {
+  const rule = MOBILE_RULES[code];
+  if (!rule) {
+    return false;
+  }
+  if (digits.length !== rule.digits) {
+    return false;
+  }
+  if (rule.startsWith && digits.charAt(0) !== rule.startsWith) {
+    return false;
+  }
+  return true;
+}
+
+// Readable grouping for the email: 52 198 6968 rather than 521986968.
+function formatMobile(code, digits) {
+  let groups;
+  if (digits.length === 9) {
+    groups = [digits.slice(0, 2), digits.slice(2, 5), digits.slice(5)];
+  } else if (digits.length === 10) {
+    groups = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6)];
+  } else if (digits.length === 8) {
+    groups = [digits.slice(0, 4), digits.slice(4)];
+  } else {
+    groups = [digits];
+  }
+  return code + " " + groups.join(" ");
+}
+
 // Anything that is not a list of short, non-empty strings is discarded
 // rather than argued with: the form only ever sends tick box labels.
 function cleanTasks(value) {
@@ -134,6 +191,7 @@ function buildHtml(lead) {
   const detailPairs = [
     ["Name", lead.name],
     ["Work email", lead.email],
+    ["Mobile number", lead.mobile],
     ["Company", lead.company],
     ["Team size", lead.size]
   ].filter(function (pair) {
@@ -440,6 +498,8 @@ export async function onRequestPost(context) {
 
   const name = clean(payload.name, 120);
   const email = clean(payload.email, 160);
+  const dial = clean(payload.dial, 8);
+  const mobileDigits = cleanDigits(payload.mobile, 32);
   const company = clean(payload.company, 160);
   const size = clean(payload.size, 60);
   const tasks = cleanTasks(payload.tasks);
@@ -450,6 +510,12 @@ export async function onRequestPost(context) {
   if (!name || !EMAIL_PATTERN.test(email)) {
     return json({ ok: false, reason: "invalid" }, 422);
   }
+
+  if (!mobileIsValid(dial, mobileDigits)) {
+    return json({ ok: false, reason: "invalid" }, 422);
+  }
+
+  const mobile = formatMobile(dial, mobileDigits);
 
   // Nothing is sent until Cloudflare agrees there is a person behind this.
   if (!env.TURNSTILE_SECRET_KEY) {
@@ -473,6 +539,7 @@ export async function onRequestPost(context) {
   const lead = {
     name: name,
     email: email,
+    mobile: mobile,
     company: company,
     size: size,
     tasks: tasks,
@@ -482,6 +549,7 @@ export async function onRequestPost(context) {
   const fields = [
     ["Name", name],
     ["Work email", email],
+    ["Mobile number", mobile],
     ["Company", company],
     ["Team size", size]
   ].filter(function (pair) {

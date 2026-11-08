@@ -1670,6 +1670,27 @@ svg, canvas {
   border-color: #C93B2B;
 }
 
+/* Dialling code and number on one row: the code box stays narrow enough
+   for the number to keep its space on a small phone. */
+.mh-phone {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.mh-phone select {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  max-width: 46%;
+  padding-inline: 10px;
+}
+
+.mh-phone input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .mh-field-err {
   font-size: 12px;
   font-weight: 500;
@@ -2264,12 +2285,6 @@ svg, canvas {
   overflow-wrap: anywhere;
 }
 
-/* Our story page */
-.mh-story p {
-  font-size: 17px;
-  line-height: 1.75;
-}
-
 /* For Staff page: the section already carries its own top padding */
 .mh-staff-page .mh-page-back {
   padding-top: clamp(28px, 4vw, 44px);
@@ -2441,15 +2456,173 @@ svg, canvas {
 
 /* Contact section on the About page. The form sits in its own card with
    the other ways to reach us beside it, stacked on a phone. */
-.mh-contact {
-  margin-top: clamp(52px, 7vw, 86px);
-  scroll-margin-top: 100px;
+/* ---------- About page ---------- */
+/* A soft green band at the top, in the same family as the home hero,
+   fading into the page so the contact band below reads as its own block. */
+.mh-about-top {
+  padding: 110px 20px clamp(48px, 6vw, 76px);
+  background: linear-gradient(
+    168deg,
+    var(--mh-tint) 0%,
+    #D8ECE2 44%,
+    var(--mh-white) 100%
+  );
 }
 
+@media (min-width: 760px) {
+  .mh-about-top {
+    padding-top: 140px;
+  }
+}
+
+/* The story and the contact section share this width and left edge. */
+.mh-about-inner,
 .mh-contact-inner {
   width: 100%;
   max-width: var(--mh-max);
   margin: 0 auto;
+}
+
+/* The back link is inline, so the tag is pushed onto its own line. */
+.mh-about-inner .mh-pill {
+  display: flex;
+  width: fit-content;
+  margin-top: 26px;
+}
+
+.mh-about-title {
+  margin-top: 14px;
+  font-family: var(--mh-heading);
+  font-size: clamp(40px, 7.4vw, 76px);
+  line-height: 1.04;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--mh-ink);
+}
+
+/* The decoration sits above the words on a phone and beside them once
+   there is room. */
+.mh-about-statement {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  gap: clamp(26px, 4vw, 48px);
+  margin-top: clamp(32px, 4.4vw, 54px);
+}
+
+@media (min-width: 860px) {
+  .mh-about-statement {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.mh-about-words {
+  min-width: 0;
+}
+
+.mh-about-words p {
+  font-family: var(--mh-heading);
+  font-size: clamp(21px, 2.9vw, 32px);
+  line-height: 1.62;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--mh-ink);
+  max-width: 24ch;
+  text-wrap: pretty;
+}
+
+.mh-about-words p + p {
+  margin-top: clamp(18px, 2.2vw, 28px);
+  color: var(--mh-green);
+}
+
+/* Concentric rings that breathe slowly. Drawn with borders only, so there
+   is no image to fetch and nothing for the page script to do. */
+.mh-about-pulse {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(148px, 30vw, 236px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.mh-about-pulse span {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--mh-line-strong);
+  animation: mh-breathe 7.5s var(--mh-ease) infinite;
+  will-change: transform, opacity;
+}
+
+.mh-about-pulse span:nth-child(1) {
+  width: 36%;
+  height: 36%;
+}
+
+.mh-about-pulse span:nth-child(2) {
+  width: 64%;
+  height: 64%;
+  animation-delay: -2.5s;
+}
+
+.mh-about-pulse span:nth-child(3) {
+  width: 92%;
+  height: 92%;
+  animation-delay: -5s;
+}
+
+.mh-about-pulse span:nth-child(4) {
+  width: 11%;
+  height: 11%;
+  background-color: var(--mh-green);
+  border-color: transparent;
+  opacity: 0.85;
+  animation: none;
+}
+
+@keyframes mh-breathe {
+  0%,
+  100% {
+    transform: scale(0.93);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 0.95;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mh-about-pulse span {
+    animation: none;
+  }
+}
+
+.mh-about-card {
+  margin-top: clamp(34px, 4.6vw, 58px);
+  padding: clamp(24px, 3.4vw, 40px);
+  border-radius: 22px;
+  background-color: var(--mh-white);
+  border: 1px solid var(--mh-line);
+  box-shadow: var(--mh-shadow-sm);
+  max-width: 62ch;
+}
+
+.mh-about-card p {
+  font-size: clamp(16px, 1.8vw, 18.5px);
+  line-height: 1.8;
+  color: var(--mh-ink-secondary);
+}
+
+/* ---------- Contact band ---------- */
+.mh-contact {
+  padding: clamp(52px, 6.4vw, 88px) 20px clamp(64px, 7.4vw, 104px);
+  background-color: var(--mh-soft);
+  border-top: 1px solid var(--mh-line);
+  scroll-margin-top: 100px;
 }
 
 .mh-contact-sub {
@@ -2494,6 +2667,8 @@ svg, canvas {
    detail underneath it. */
 .mh-contact-list {
   list-style: none;
+  margin: 0;
+  padding-inline-start: 0;
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 2.6vw, 28px);

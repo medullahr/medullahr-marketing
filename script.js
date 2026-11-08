@@ -610,6 +610,102 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
   const demoDoneView = document.getElementById("mh-demo-done-view");
   const demoDoneText = document.getElementById("mh-demo-done-text");
 
+  // How many digits each dialling code expects, without the country code
+  // and without the trunk zero. The same table runs on the server.
+  const MOBILE_RULES = {
+    "+971": { digits: 9, startsWith: "5" },
+    "+966": { digits: 9 },
+    "+968": { digits: 8 },
+    "+973": { digits: 8 },
+    "+974": { digits: 8 },
+    "+965": { digits: 8 },
+    "+20": { digits: 10 },
+    "+91": { digits: 10 },
+    "+92": { digits: 10 },
+    "+63": { digits: 10 },
+    "+234": { digits: 10 },
+    "+44": { digits: 10 },
+    "+1": { digits: 10 }
+  };
+
+  const MOBILE_ERROR = "Enter a valid mobile number for the selected country.";
+
+  const dialInput = document.getElementById("mh-demo-dial");
+  const mobileInput = document.getElementById("mh-demo-mobile");
+  const mobileErr = document.getElementById("mh-err-mobile");
+
+  // Spaces, dashes, brackets and a leading trunk zero are all things people
+  // type or paste out of a contact card. Take them off rather than refuse
+  // the number.
+  const tidyMobile = (value, rule) => {
+    let digits = String(value || "").replace(/\D+/g, "");
+    while (digits.charAt(0) === "0") {
+      digits = digits.slice(1);
+    }
+    if (rule && digits.length > rule.digits) {
+      digits = digits.slice(0, rule.digits);
+    }
+    return digits;
+  };
+
+  const mobileRuleFor = (code) => MOBILE_RULES[code] || null;
+
+  const mobileIsValid = (code, digits) => {
+    const rule = mobileRuleFor(code);
+    if (!rule) return false;
+    if (digits.length !== rule.digits) return false;
+    if (rule.startsWith && digits.charAt(0) !== rule.startsWith) return false;
+    return true;
+  };
+
+  const markMobile = (ok) => {
+    if (mobileInput) {
+      mobileInput.setAttribute("aria-invalid", ok ? "false" : "true");
+    }
+    if (mobileErr) {
+      mobileErr.textContent = ok ? "" : MOBILE_ERROR;
+    }
+  };
+
+  if (dialInput && mobileInput) {
+    const applyRule = () => {
+      const rule = mobileRuleFor(dialInput.value);
+      if (rule) {
+        mobileInput.setAttribute("maxlength", String(rule.digits));
+      }
+      mobileInput.value = tidyMobile(mobileInput.value, rule);
+    };
+
+    applyRule();
+
+    // Typing and pasting both land here, so one handler covers the lot.
+    mobileInput.addEventListener("input", () => {
+      const rule = mobileRuleFor(dialInput.value);
+      const tidied = tidyMobile(mobileInput.value, rule);
+      if (tidied !== mobileInput.value) {
+        const atEnd = mobileInput.selectionStart === mobileInput.value.length;
+        mobileInput.value = tidied;
+        if (atEnd) {
+          mobileInput.setSelectionRange(tidied.length, tidied.length);
+        }
+      }
+      // Clear a standing error as soon as the number becomes usable.
+      if (mobileErr && mobileErr.textContent) {
+        if (mobileIsValid(dialInput.value, tidied)) {
+          markMobile(true);
+        }
+      }
+    });
+
+    // A new country means a new length, so the number is checked again.
+    dialInput.addEventListener("change", () => {
+      applyRule();
+      if (mobileErr && mobileErr.textContent) {
+        markMobile(mobileIsValid(dialInput.value, mobileInput.value));
+      }
+    });
+  }
+
   // The free text box only appears once somebody asks for it. Both the
   // hidden attribute and the inline style come off together, so the
   // field stays down even with an old stylesheet.
@@ -690,6 +786,19 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         if (emailErr) emailErr.textContent = "";
       }
 
+      const dialVal = dialInput ? dialInput.value : "";
+      const mobileVal = mobileInput
+        ? tidyMobile(mobileInput.value, mobileRuleFor(dialVal))
+        : "";
+      if (mobileInput) {
+        mobileInput.value = mobileVal;
+      }
+      const mobileOk = mobileIsValid(dialVal, mobileVal);
+      markMobile(mobileOk);
+      if (!mobileOk) {
+        hasError = true;
+      }
+
       if (hasError) return;
 
       const subject = encodeURIComponent(
@@ -698,6 +807,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
       const bodyLines = [
         `Name: ${nameVal}`,
         `Work email: ${emailVal}`,
+        `Mobile number: ${dialVal} ${mobileVal}`,
         companyVal ? `Company: ${companyVal}` : null,
         sizeVal ? `Team size: ${sizeVal}` : null,
         taskLabels.length
@@ -808,6 +918,8 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         body: JSON.stringify({
           name: nameVal,
           email: emailVal,
+          dial: dialVal,
+          mobile: mobileVal,
           company: companyVal,
           size: sizeVal,
           tasks: taskVals,
