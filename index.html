@@ -17,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="stylesheet" href="styles.css?v=13" />
   </head>
   <body>
     <a href="#main-content" class="mh-skip">Skip to content</a>
@@ -31,18 +31,13 @@
 
       <nav class="mh-nav-links" aria-label="Main navigation">
         <a href="/about">About</a>
-        <a href="/solution">Solution</a>
-        <a href="#contact">Contact</a>
+        <a href="/solution#modules">Modules</a>
+        <a href="/solution#how-it-works">How it works</a>
+        <a href="/about#contact">Contact</a>
       </nav>
 
       <div class="mh-nav-actions">
-        <button
-          type="button"
-          class="mh-btn mh-btn-sm"
-          data-open-demo
-        >
-          Ask for a demo
-        </button>
+        <a class="mh-btn mh-btn-sm" href="/about#contact">Ask for a demo</a>
         <button
           type="button"
           class="mh-burger"
@@ -57,12 +52,11 @@
       <nav class="mh-drawer" aria-label="Mobile navigation">
         <div class="mh-drawer-inner">
           <a href="/about">About</a>
-          <a href="/solution">Solution</a>
-          <a href="#contact">Contact</a>
+          <a href="/solution#modules">Modules</a>
+          <a href="/solution#how-it-works">How it works</a>
+          <a href="/about#contact">Contact</a>
           <div class="mh-drawer-cta">
-            <button type="button" class="mh-btn" data-open-demo>
-              Ask for a demo
-            </button>
+            <a class="mh-btn" href="/about#contact">Ask for a demo</a>
           </div>
         </div>
       </nav>
@@ -85,9 +79,7 @@
         </p>
 
         <div class="mh-hero-actions mh-in" style="animation-delay: 180ms">
-          <button type="button" class="mh-btn" data-open-demo>
-            Ask for a demo
-          </button>
+          <a href="/about#contact" class="mh-btn">Ask for a demo</a>
           <a href="/solution" class="mh-btn mh-btn-soft">Explore 13 modules</a>
         </div>
 
@@ -412,17 +404,9 @@
       <!-- 3. THE SOLUTION, IN SHORT -->
       <section id="solution" class="mh-section">
         <div class="mh-solution-card mh-rv">
-          <span class="mh-pill">The solution</span>
           <h2 class="mh-h2">
             13 HR modules. Switch on what you need, when you need it.
           </h2>
-
-          <ol class="mh-solution-steps">
-            <li>We set up your company</li>
-            <li>You add your staff</li>
-            <li>Your staff sign in</li>
-          </ol>
-
           <a href="/solution" class="mh-btn">Explore the solution</a>
         </div>
       </section>
@@ -449,53 +433,11 @@
         </div>
       </section>
 
-      <!-- 5. DEMO CALL TO ACTION -->
-      <section id="contact" class="mh-cta-wrap">
-        <div class="mh-cta-box mh-rv">
-          <canvas id="mh-cta-canvas" aria-hidden="true"></canvas>
-          <div class="mh-cta-inner">
-            <span
-              class="mh-pill"
-              style="background-color: rgba(255, 255, 255, 0.85)"
-            >
-              Ready when you are
-            </span>
-            <h2>See how MedullaHR fits your company.</h2>
-            <p>
-              Tell us which HR tasks take up your week, and we'll walk you
-              through a live demo with the modules your team needs.
-            </p>
-            <div class="mh-cta-buttons">
-              <button type="button" class="mh-btn" data-open-demo>
-                Ask for a demo
-              </button>
-            </div>
-            <div class="mh-cta-buttons mh-cta-buttons-alt">
-              <a
-                href="mailto:hello@medullahr.com"
-                class="mh-btn mh-btn-outline"
-                aria-label="Email MedullaHR"
-              >
-                Email us
-              </a>
-              <a
-                href="https://wa.me/971521986968"
-                class="mh-btn mh-btn-outline"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Chat with MedullaHR on WhatsApp"
-              >
-                Prefer WhatsApp? Chat with us
-              </a>
-              <a
-                href="tel:+971521986968"
-                class="mh-btn mh-btn-outline"
-                aria-label="Call MedullaHR"
-              >
-                Call +971 52 198 6968
-              </a>
-            </div>
-          </div>
+      <!-- 5. CLOSING CALL TO ACTION -->
+      <section class="mh-section">
+        <div class="mh-closing-strip mh-rv">
+          <h2 class="mh-h2">Ready when you are</h2>
+          <a class="mh-btn" href="/about#contact">Ask for a demo</a>
         </div>
       </section>
     </main>
@@ -518,7 +460,7 @@
           <a href="/about">About</a>
           <a href="/solution">Solution</a>
           <a href="/staff">For Staff</a>
-          <a href="#contact">Contact</a>
+          <a href="/about#contact">Contact</a>
         </nav>
 
         <div class="mh-foot-col">
@@ -565,9 +507,8 @@
           <a href="https://app.medullahr.com" data-signin-link>
             Staff Sign In
           </a>
-          <button
-            type="button"
-            data-open-demo
+          <a
+            href="/about#contact"
             style="
               font-size: 14.5px;
               font-weight: 500;
@@ -575,7 +516,7 @@
             "
           >
             Ask for a demo
-          </button>
+          </a>
         </div>
       </div>
 
@@ -593,333 +534,10 @@
     </footer>
 
     <!-- Native Modal Dialog for "Ask for a demo" -->
-    <dialog
-      id="mh-demo-dialog"
-      class="mh-dialog"
-      closedby="any"
-      aria-labelledby="mh-demo-title"
-    >
-      <div class="mh-dialog-body">
-        <form method="dialog">
-          <button
-            type="submit"
-            value="cancel"
-            class="mh-dialog-close"
-            aria-label="Close demo dialog"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-              aria-hidden="true"
-            >
-              <path d="M2 2l10 10M12 2L2 12"></path>
-            </svg>
-          </button>
-        </form>
 
-        <div id="mh-demo-form-view">
-          <span class="mh-pill">Book a walkthrough</span>
-          <h2 id="mh-demo-title">Ask for a demo</h2>
-          <p class="mh-dialog-sub">
-            Share a few details about your company and we will show you how
-            MedullaHR works for your team.
-          </p>
 
-          <form id="mh-demo-form" novalidate>
-            <div class="mh-form-grid">
-              <label class="mh-field">
-                <span>Your name</span>
-                <input
-                  id="mh-demo-name"
-                  type="text"
-                  name="name"
-                  placeholder="Layla Al Mansoori"
-                  autocomplete="name"
-                  autofocus
-                  required
-                />
-                <span id="mh-err-name" class="mh-field-err"></span>
-              </label>
-
-              <label class="mh-field">
-                <span>Work email</span>
-                <input
-                  id="mh-demo-email"
-                  type="email"
-                  name="email"
-                  placeholder="you@company.ae"
-                  autocomplete="email"
-                  required
-                />
-                <span id="mh-err-email" class="mh-field-err"></span>
-              </label>
-
-              <label class="mh-field">
-                <span>Company name</span>
-                <input
-                  id="mh-demo-company"
-                  type="text"
-                  name="company"
-                  placeholder="Your company in the UAE"
-                  autocomplete="organization"
-                />
-              </label>
-
-              <label class="mh-field">
-                <span>Number of staff</span>
-                <select id="mh-demo-size" name="size">
-                  <option value="10–30 staff">10–30 staff</option>
-                  <option value="31–75 staff">31–75 staff</option>
-                  <option value="76–150 staff">76–150 staff</option>
-                  <option value="151–200 staff">151–200 staff</option>
-                  <option value="200+ staff">200+ staff</option>
-                  <option value="Other">Other</option>
-                </select>
-              </label>
-
-              <fieldset class="mh-field mh-span-2 mh-tasks">
-                <legend>What would you like help with?</legend>
-                <p class="mh-tasks-hint">Tick all that apply.</p>
-
-                <div class="mh-task-grid">
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Org Chart"
-                    />
-                    <span>Company Structure &amp; Org Chart</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Hiring and Recruitment"
-                    />
-                    <span>Recruitment &amp; Hiring</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Employee Onboarding"
-                    />
-                    <span>Onboarding New Employees</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Attendance and Leave"
-                    />
-                    <span>Attendance &amp; Leave Management</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Payroll and Benefits"
-                    />
-                    <span>Payroll &amp; Benefits</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Learning and Development"
-                    />
-                    <span>Learning &amp; Development</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Performance and Feedback"
-                    />
-                    <span>Performance Management &amp; Feedback</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Employee Engagement"
-                    />
-                    <span>Employee Engagement</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="HR Budgets and Expenses"
-                    />
-                    <span>HR Budgets &amp; Expenses</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="HR Admin and Documents"
-                    />
-                    <span>HR Files &amp; Documents</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="HR Compliance Reminders"
-                    />
-                    <span>Visa, Emirates ID &amp; Contract Renewal Tracking</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Employee Relations"
-                    />
-                    <span>Employee Relations: complaints, warnings &amp; disputes</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      type="checkbox"
-                      name="tasks"
-                      value="Offboarding"
-                    />
-                    <span>Resignations, Exits &amp; End-of-Service</span>
-                  </label>
-                  <label class="mh-task">
-                    <input
-                      id="mh-demo-task-other"
-                      type="checkbox"
-                      name="tasks"
-                      value="Other"
-                      aria-controls="mh-demo-other-wrap"
-                      aria-expanded="false"
-                    />
-                    <span>Something else</span>
-                  </label>
-                </div>
-
-                <div
-                  id="mh-demo-other-wrap"
-                  class="mh-task-other"
-                  hidden
-                  style="display: none"
-                >
-                  <label for="mh-demo-other">
-                    Tell us what else you need help with.
-                  </label>
-                  <input
-                    id="mh-demo-other"
-                    type="text"
-                    name="other"
-                    maxlength="500"
-                    placeholder="For example: shift swaps, petty cash, medical insurance renewals"
-                  />
-                </div>
-              </fieldset>
-            </div>
-
-            <div class="mh-turnstile">
-              <div
-                id="mh-demo-turnstile"
-                class="cf-turnstile"
-                data-sitekey="0x4AAAAAAFy-rLOxTnCgrTmL"
-                data-theme="light"
-                data-error-callback="mhChallengeUnavailable"
-              ></div>
-              <span id="mh-err-turnstile" class="mh-field-err"></span>
-            </div>
-
-            <div
-              class="mh-hp"
-              aria-hidden="true"
-              style="
-                position: absolute;
-                left: -9999px;
-                width: 1px;
-                height: 1px;
-                overflow: hidden;
-              "
-            >
-              <label for="mh-demo-website">Contact preference note</label>
-              <input
-                id="mh-demo-website"
-                type="text"
-                name="contact_preference_note"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </div>
-
-            <div class="mh-dialog-foot">
-              <span>Or email <a href="mailto:hello@medullahr.com" style="text-decoration:underline;color:var(--mh-green);font-weight:600;">hello@medullahr.com</a></span>
-              <button type="submit" class="mh-btn">Request demo</button>
-            </div>
-          </form>
-        </div>
-
-        <div
-          id="mh-demo-done-view"
-          class="mh-dialog-done"
-          hidden
-          style="display: none"
-        >
-          <div class="mh-dialog-done-mark" aria-hidden="true">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M20 6 9 17l-5-5"></path>
-            </svg>
-          </div>
-          <h2>Demo request ready</h2>
-          <p id="mh-demo-done-text" class="mh-dialog-sub"></p>
-          <div
-            style="
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-              gap: 10px;
-              margin-top: 10px;
-            "
-          >
-            <a
-              id="mh-demo-mailto-fallback"
-              href="mailto:hello@medullahr.com"
-              class="mh-btn"
-              >Send via email app</a
-            >
-            <button
-              type="button"
-              id="mh-demo-done-close"
-              class="mh-btn mh-btn-soft"
-            >
-              Done
-            </button>
-          </div>
-        </div>
-      </div>
-    </dialog>
-
-    <script src="config.js?v=12"></script>
-    <script src="script.js?v=12"></script>
-    <!-- Loaded last on purpose: script.js sets the widget's size for the
-         screen, and that has to happen before Turnstile draws it. -->
-    <script
-      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-      async
-      defer
-    ></script>
+    <script src="config.js?v=13"></script>
+    <script src="script.js?v=13"></script>
   </body>
 </html>
 

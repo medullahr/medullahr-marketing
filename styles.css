@@ -422,10 +422,6 @@ svg, canvas {
   box-shadow: 0 8px 22px -10px rgba(27, 43, 36, 0.3);
 }
 
-.mh-cta-buttons-alt {
-  margin-top: 12px;
-}
-
 .mh-pill {
   display: inline-flex;
   align-items: center;
@@ -1544,83 +1540,6 @@ svg, canvas {
 }
 
 /* ---------- 6. Demo Call to Action ---------- */
-.mh-cta-wrap {
-  padding-top: clamp(80px, 10vw, 144px);
-}
-
-.mh-cta-box {
-  position: relative;
-  border-radius: clamp(20px, 2.8vw, 32px);
-  background: linear-gradient(155deg, var(--mh-tint) 0%, #CEE6D9 55%, #BDDACA 100%);
-  border: 1px solid var(--mh-line-strong);
-  min-height: clamp(290px, 32vw, 390px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: clamp(40px, 6vw, 72px) 24px;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.mh-cta-box > canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
-}
-
-.mh-cta-inner {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 620px;
-}
-
-.mh-cta-inner h2 {
-  margin-top: 14px;
-  font-family: var(--mh-heading);
-  font-weight: 600;
-  font-size: clamp(28px, 4.2vw, 50px);
-  line-height: 1.07;
-  letter-spacing: -0.03em;
-  color: var(--mh-ink);
-  text-wrap: balance;
-}
-
-.mh-cta-inner p {
-  margin-top: 14px;
-  font-size: clamp(15px, 1.3vw, 17px);
-  color: var(--mh-ink-secondary);
-  max-width: 48ch;
-  line-height: 1.6;
-}
-
-.mh-cta-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 28px;
-}
-
-.mh-cta-note {
-  margin-top: 16px;
-  font-size: 13px;
-  color: var(--mh-muted);
-}
-
-.mh-cta-note a {
-  color: var(--mh-green);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 /* ---------- 7. Footer ---------- */
 .mh-footer {
   margin-top: clamp(72px, 9vw, 120px);
@@ -1721,76 +1640,8 @@ svg, canvas {
   color: var(--mh-muted);
 }
 
-/* ---------- Native <dialog> Demo Modal ---------- */
-dialog.mh-dialog {
-  border: 1px solid var(--mh-line-strong);
-  border-radius: 24px;
-  padding: 0;
-  width: min(520px, calc(100vw - 32px));
-  background-color: var(--mh-white);
-  color: var(--mh-ink);
-  box-shadow: var(--mh-shadow-lg);
-}
-
-dialog.mh-dialog:modal {
-  overscroll-behavior: contain;
-}
-
-dialog.mh-dialog::backdrop {
-  overflow: hidden;
-  overscroll-behavior: contain;
-  background-color: rgba(27, 43, 36, 0.42);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-dialog.mh-dialog[open] {
-  animation: mh-up 0.35s var(--mh-ease) both;
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-.mh-dialog-body {
-  position: relative;
-  padding: clamp(22px, 4vw, 32px);
-}
-
-.mh-dialog-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background-color: var(--mh-soft);
-  color: var(--mh-ink);
-  transition: background-color 0.2s ease, transform 0.25s var(--mh-ease);
-  @media (prefers-reduced-motion: reduce) {
-    transition: background-color 0.2s ease;
-  }
-}
-
-.mh-dialog-close:hover {
-  background-color: var(--mh-tint);
-  transform: rotate(90deg);
-  @media (prefers-reduced-motion: reduce) {
-    transform: none;
-  }
-}
-
-.mh-dialog-body h2 {
-  margin-top: 14px;
-  font-family: var(--mh-heading);
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-}
-
-.mh-dialog-sub {
+/* ---------- Demo Request Form ---------- */
+.mh-form-note {
   margin-top: 8px;
   font-size: 14px;
   color: var(--mh-muted);
@@ -1855,7 +1706,7 @@ dialog.mh-dialog[open] {
   min-height: 16px;
 }
 
-.mh-dialog-foot {
+.mh-form-foot {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -1864,12 +1715,21 @@ dialog.mh-dialog[open] {
   margin-top: 20px;
 }
 
-.mh-dialog-foot span {
+.mh-form-foot span {
   font-size: 12.5px;
   color: var(--mh-muted);
 }
 
-.mh-dialog-done {
+.mh-form-done h2 {
+  margin-top: 14px;
+  font-family: var(--mh-heading);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+}
+
+.mh-form-done {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1900,7 +1760,7 @@ dialog.mh-dialog[open] {
   margin-top: 6px;
 }
 
-.mh-dialog-done-mark {
+.mh-form-done-mark {
   display: grid;
   place-items: center;
   width: 56px;
@@ -2088,15 +1948,7 @@ dialog.mh-dialog[open] {
   }
 
   /* Side by side on a wide screen, one under the other on a phone. */
-  .mh-cta-buttons-alt {
-    flex-direction: column;
-    align-self: stretch;
-    width: 100%;
-  }
 
-  .mh-cta-buttons-alt .mh-btn-outline {
-    width: 100%;
-  }
 }
 
 /* The compact widget is narrower but taller than the standard one. */
@@ -2500,7 +2352,7 @@ dialog.mh-dialog[open] {
 
 /* The contact box now leads with one primary button and a row of
    secondary ones underneath. */
-.mh-cta-buttons-alt .mh-btn-outline {
+.mh-contact-side .mh-btn-outline {
   font-size: 15px;
   padding: 10px 20px;
 }
@@ -2520,12 +2372,14 @@ dialog.mh-dialog[open] {
 
 /* Short solution card on the home page, in place of the two sections that
    now live on their own page. */
+/* Slim solution card: heading and button side by side once there is
+   room, stacked on a phone. */
 .mh-solution-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 14px;
-  padding: clamp(26px, 3.4vw, 42px);
+  gap: 18px;
+  padding: clamp(24px, 3vw, 36px);
   border-radius: 24px;
   border: 1px solid var(--mh-line-strong);
   background: linear-gradient(155deg, var(--mh-tint) 0%, #D3E9DE 52%, #C0DFD0 100%);
@@ -2533,85 +2387,29 @@ dialog.mh-dialog[open] {
 }
 
 .mh-solution-card .mh-h2 {
-  font-size: clamp(22px, 2.6vw, 32px);
-  max-width: 24ch;
+  font-size: clamp(21px, 2.3vw, 29px);
+  max-width: 22ch;
   text-wrap: balance;
 }
 
-.mh-solution-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-  margin: 2px 0 6px;
-  counter-reset: mh-sol-step;
+.mh-solution-card .mh-btn {
+  flex: 0 0 auto;
 }
 
-.mh-solution-steps li {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 16px;
-  border-radius: 14px;
-  background-color: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--mh-ink);
-  overflow-wrap: anywhere;
+@media (min-width: 760px) {
+  .mh-solution-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+  }
 }
 
 /* The arrow between the steps: pointing down while they are stacked. */
-.mh-solution-steps li + li::before {
-  content: "";
-  position: absolute;
-  top: -11px;
-  left: 50%;
-  width: 9px;
-  height: 9px;
-  border-right: 1.8px solid var(--mh-green);
-  border-bottom: 1.8px solid var(--mh-green);
-  transform: translateX(-50%) rotate(45deg);
-  opacity: 0.55;
-}
-
-.mh-solution-steps li::after {
-  counter-increment: mh-sol-step;
-  content: counter(mh-sol-step);
-  order: -1;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background-color: var(--mh-green);
-  color: var(--mh-white);
-  font-size: 12px;
-  font-weight: 700;
-}
-
 @media (min-width: 720px) {
-  .mh-solution-steps {
-    flex-direction: row;
-    align-items: stretch;
-    gap: 30px;
-  }
 
-  .mh-solution-steps li {
-    flex: 1 1 0;
-    min-width: 0;
-  }
 
   /* Side by side the arrow turns to point across instead of down. */
-  .mh-solution-steps li + li::before {
-    top: 50%;
-    left: -20px;
-    border-right: 1.8px solid var(--mh-green);
-    border-bottom: 1.8px solid var(--mh-green);
-    transform: translateY(-50%) rotate(-45deg);
-  }
 }
 
 /* Closing block on the solution page spans the full width. */
@@ -2653,4 +2451,95 @@ dialog.mh-dialog[open] {
   justify-content: center;
   gap: 12px;
   margin-top: 8px;
+}
+
+
+/* Closing strip on the home page */
+.mh-closing-strip {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: clamp(24px, 3vw, 34px) clamp(24px, 3.4vw, 40px);
+  border-radius: 20px;
+  background-color: var(--mh-soft);
+  border: 1px solid var(--mh-line);
+}
+
+.mh-closing-strip .mh-h2 {
+  font-size: clamp(21px, 2.2vw, 27px);
+}
+
+@media (min-width: 620px) {
+  .mh-closing-strip {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+}
+
+/* Contact section on the About page. The form sits in its own card with
+   the other ways to reach us beside it, stacked on a phone. */
+.mh-contact {
+  margin-top: clamp(52px, 7vw, 86px);
+  scroll-margin-top: 100px;
+}
+
+.mh-contact-inner {
+  width: 100%;
+  max-width: var(--mh-max);
+  margin: 0 auto;
+}
+
+.mh-contact-sub {
+  margin-top: 6px;
+  font-family: var(--mh-heading);
+  font-size: clamp(17px, 1.8vw, 20px);
+  font-weight: 600;
+  color: var(--mh-ink);
+}
+
+.mh-contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  margin-top: 26px;
+}
+
+@media (min-width: 900px) {
+  .mh-contact-grid {
+    grid-template-columns: minmax(0, 1fr) 260px;
+    align-items: start;
+  }
+}
+
+.mh-contact-card {
+  min-width: 0;
+  padding: clamp(20px, 3vw, 30px);
+  border-radius: 22px;
+  background-color: var(--mh-white);
+  border: 1px solid var(--mh-line-strong);
+  box-shadow: var(--mh-shadow-sm);
+}
+
+.mh-contact-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.mh-contact-side .mh-btn-outline {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  font-size: 15px;
+  padding: 12px 18px;
+}
+
+/* Anchors on the Solution page clear the sticky header. */
+#modules,
+#how-it-works {
+  scroll-margin-top: 100px;
 }

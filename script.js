@@ -8,8 +8,8 @@ const CONTACT_EMAIL =
     ? MEDULLAHR_CONFIG.contactEmail
     : "hello@medullahr.com";
 
-// The full size widget is 300px wide, which will not fit in the demo
-// dialog on a small phone. This runs before the Turnstile script is
+// The full size widget is 300px wide, which will not fit in the contact
+// form card on a small phone. This runs before the Turnstile script is
 // fetched, so the attribute is in place by the time the widget is drawn.
 (function sizeChallengeForScreen() {
   const widget = document.getElementById("mh-demo-turnstile");
@@ -109,7 +109,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
     });
   }
 
-  // 4. Serene Daylight Long-Exposure Ribbon Canvas (Hero & CTA)
+  // 4. Serene Daylight Long-Exposure Ribbon Canvas (Hero)
   function attachDaylightCanvas(canvas, seedOffset) {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -251,7 +251,6 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
   }
 
   attachDaylightCanvas(document.getElementById("mh-hero-canvas"), 1);
-  attachDaylightCanvas(document.getElementById("mh-cta-canvas"), 3);
 
   // 5. Interactive Hero Mini-Chips
   document.querySelectorAll(".mh-mini-chip").forEach((chip) => {
@@ -603,299 +602,249 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
 
   renderStaffTab(0, false);
 
-  // 9. Native <dialog> Demo Modal with Light-Dismiss Fallback
-  const demoDialog = document.getElementById("mh-demo-dialog");
-  const demoTriggers = document.querySelectorAll("[data-open-demo]");
+  // 9. Demo request form
+  // The form lives on the About page now, so every page without it skips
+  // this block.
   const demoForm = document.getElementById("mh-demo-form");
   const demoFormView = document.getElementById("mh-demo-form-view");
   const demoDoneView = document.getElementById("mh-demo-done-view");
   const demoDoneText = document.getElementById("mh-demo-done-text");
-  const demoDoneClose = document.getElementById("mh-demo-done-close");
 
-  if (demoDialog) {
-    demoTriggers.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (demoFormView && demoDoneView) {
-          demoFormView.hidden = false;
-          demoDoneView.hidden = true;
-          // The inline style keeps the panel down even for a visitor
-          // holding an old copy of the stylesheet.
-          demoDoneView.style.display = "none";
-        }
-        const reopenMailto = document.getElementById("mh-demo-mailto-fallback");
-        if (reopenMailto) {
-          reopenMailto.hidden = false;
-        }
-        const reopenChallengeErr = document.getElementById("mh-err-turnstile");
-        if (reopenChallengeErr) {
-          reopenChallengeErr.textContent = "";
-        }
-        demoDialog.showModal();
-      });
+  // The free text box only appears once somebody asks for it. Both the
+  // hidden attribute and the inline style come off together, so the
+  // field stays down even with an old stylesheet.
+  const otherToggle = document.getElementById("mh-demo-task-other");
+  const otherWrap = document.getElementById("mh-demo-other-wrap");
+  const otherInput = document.getElementById("mh-demo-other");
+
+  if (otherToggle && otherWrap) {
+    otherToggle.addEventListener("change", () => {
+      const wanted = otherToggle.checked;
+      otherToggle.setAttribute("aria-expanded", wanted ? "true" : "false");
+      otherWrap.hidden = !wanted;
+      otherWrap.style.display = wanted ? "" : "none";
+      if (wanted && otherInput) {
+        otherInput.focus();
+      }
+      if (!wanted && otherInput) {
+        otherInput.value = "";
+      }
     });
+  }
 
-    // Mandatory fallback for browsers without native <dialog closedby="any"> support
-    if (!("closedBy" in HTMLDialogElement.prototype)) {
-      demoDialog.addEventListener("click", (event) => {
-        if (event.target !== demoDialog) return;
-        const rect = demoDialog.getBoundingClientRect();
-        const isDialogContent =
-          rect.top <= event.clientY &&
-          event.clientY <= rect.top + rect.height &&
-          rect.left <= event.clientX &&
-          event.clientX <= rect.left + rect.width;
-        if (isDialogContent) return;
-        demoDialog.close();
-      });
-    }
+  if (demoForm) {
+    demoForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById("mh-demo-name");
+      const emailInput = document.getElementById("mh-demo-email");
+      const companyInput = document.getElementById("mh-demo-company");
+      const sizeInput = document.getElementById("mh-demo-size");
+      const trapInput = document.getElementById("mh-demo-website");
 
-    demoDialog.addEventListener("close", () => {
-      demoDialog.returnValue = "";
-    });
+      const nameErr = document.getElementById("mh-err-name");
+      const emailErr = document.getElementById("mh-err-email");
 
-    if (demoDoneClose) {
-      demoDoneClose.addEventListener("click", () => {
-        demoDialog.close();
-      });
-    }
-
-    // The free text box only appears once somebody asks for it. Both the
-    // hidden attribute and the inline style come off together, so the
-    // field stays down even with an old stylesheet.
-    const otherToggle = document.getElementById("mh-demo-task-other");
-    const otherWrap = document.getElementById("mh-demo-other-wrap");
-    const otherInput = document.getElementById("mh-demo-other");
-
-    if (otherToggle && otherWrap) {
-      otherToggle.addEventListener("change", () => {
-        const wanted = otherToggle.checked;
-        otherToggle.setAttribute("aria-expanded", wanted ? "true" : "false");
-        otherWrap.hidden = !wanted;
-        otherWrap.style.display = wanted ? "" : "none";
-        if (wanted && otherInput) {
-          otherInput.focus();
-        }
-        if (!wanted && otherInput) {
-          otherInput.value = "";
-        }
-      });
-    }
-
-    if (demoForm) {
-      demoForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const nameInput = document.getElementById("mh-demo-name");
-        const emailInput = document.getElementById("mh-demo-email");
-        const companyInput = document.getElementById("mh-demo-company");
-        const sizeInput = document.getElementById("mh-demo-size");
-        const trapInput = document.getElementById("mh-demo-website");
-
-        const nameErr = document.getElementById("mh-err-name");
-        const emailErr = document.getElementById("mh-err-email");
-
-        const nameVal = nameInput ? nameInput.value.trim() : "";
-        const emailVal = emailInput ? emailInput.value.trim() : "";
-        const companyVal = companyInput ? companyInput.value.trim() : "";
-        const sizeVal = sizeInput ? sizeInput.value : "";
-        // "Other" is the flag for the free text box, not a task in itself,
-        // so it is left out of the list that gets sent.
-        const taskBoxes = [
-          ...demoForm.querySelectorAll('input[name="tasks"]')
-        ].filter((box) => box.checked && box.value !== "Other");
-        // The official module name travels to the server; the wording the
-        // visitor actually read goes into the email app fallback.
-        const taskVals = taskBoxes.map((box) => box.value);
-        const taskLabels = taskBoxes.map((box) => {
-          const text = box.parentElement
-            ? box.parentElement.querySelector("span")
-            : null;
-          const wording = text ? text.textContent.trim() : "";
-          return wording && wording !== box.value
-            ? `${wording} (${box.value})`
-            : box.value;
-        });
-        const otherVal =
-          otherToggle && otherToggle.checked && otherInput
-            ? otherInput.value.trim()
-            : "";
-
-        let hasError = false;
-        if (!nameVal) {
-          hasError = true;
-          if (nameInput) nameInput.setAttribute("aria-invalid", "true");
-          if (nameErr) nameErr.textContent = "Please enter your name.";
-        } else {
-          if (nameInput) nameInput.setAttribute("aria-invalid", "false");
-          if (nameErr) nameErr.textContent = "";
-        }
-
-        const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailVal);
-        if (!emailValid) {
-          hasError = true;
-          if (emailInput) emailInput.setAttribute("aria-invalid", "true");
-          if (emailErr) emailErr.textContent = "Please enter a valid work email.";
-        } else {
-          if (emailInput) emailInput.setAttribute("aria-invalid", "false");
-          if (emailErr) emailErr.textContent = "";
-        }
-
-        if (hasError) return;
-
-        const subject = encodeURIComponent(
-          `MedullaHR Demo Request${companyVal ? " for " + companyVal : ""}`
-        );
-        const bodyLines = [
-          `Name: ${nameVal}`,
-          `Work email: ${emailVal}`,
-          companyVal ? `Company: ${companyVal}` : null,
-          sizeVal ? `Team size: ${sizeVal}` : null,
-          taskLabels.length
-            ? `\nLooking to simplify:\n${taskLabels.map((t) => `- ${t}`).join("\n")}`
-            : null,
-          otherVal
-            ? `${taskLabels.length ? "" : "\n"}- Something else: ${otherVal}`
-            : null
-        ]
-          .filter(Boolean)
-          .join("\n");
-
-        const mailtoHref = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${encodeURIComponent(bodyLines)}`;
-        const mailtoLink = document.getElementById("mh-demo-mailto-fallback");
-        if (mailtoLink) {
-          mailtoLink.setAttribute("href", mailtoHref);
-        }
-
-        const submitBtn = demoForm.querySelector('button[type="submit"]');
-        const submitLabel = submitBtn ? submitBtn.textContent : "";
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Sending…";
-        }
-
-        // Show the done view either way; the mailto button is only offered
-        // when the request did not reach us.
-        const doneHeading = demoDoneView
-          ? demoDoneView.querySelector("h2")
+      const nameVal = nameInput ? nameInput.value.trim() : "";
+      const emailVal = emailInput ? emailInput.value.trim() : "";
+      const companyVal = companyInput ? companyInput.value.trim() : "";
+      const sizeVal = sizeInput ? sizeInput.value : "";
+      // "Other" is the flag for the free text box, not a task in itself,
+      // so it is left out of the list that gets sent.
+      const taskBoxes = [
+        ...demoForm.querySelectorAll('input[name="tasks"]')
+      ].filter((box) => box.checked && box.value !== "Other");
+      // The official module name travels to the server; the wording the
+      // visitor actually read goes into the email app fallback.
+      const taskVals = taskBoxes.map((box) => box.value);
+      const taskLabels = taskBoxes.map((box) => {
+        const text = box.parentElement
+          ? box.parentElement.querySelector("span")
           : null;
-
-        const showDone = (sent) => {
-          if (doneHeading) {
-            doneHeading.textContent = sent
-              ? "Request sent"
-              : "Demo request ready";
-          }
-          if (demoDoneText) {
-            demoDoneText.textContent = sent
-              ? `Thank you, ${nameVal}. Your request is with our team and we will reply to ${emailVal} shortly.`
-              : `Thank you, ${nameVal}. Your demo request details are ready for ${CONTACT_EMAIL}.`;
-          }
-          if (mailtoLink) {
-            mailtoLink.hidden = sent;
-          }
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = submitLabel;
-          }
-          if (demoFormView && demoDoneView) {
-            demoFormView.hidden = true;
-            demoDoneView.hidden = false;
-            demoDoneView.style.display = "";
-          }
-        };
-
-        const resetChallenge = () => {
-          if (window.turnstile) {
-            try {
-              window.turnstile.reset("#mh-demo-turnstile");
-            } catch (err) {
-              /* the widget was never rendered */
-            }
-          }
-        };
-
-        const tokenField = demoForm.querySelector(
-          'input[name="cf-turnstile-response"]'
-        );
-        const token = tokenField ? tokenField.value : "";
-        const challengeErr = document.getElementById("mh-err-turnstile");
-
-        // An ad blocker, a blocked network or a widget that refuses to run
-        // can stop the check working. That is not the visitor's fault, so
-        // hand them the email route rather than a dead end.
-        if (
-          !window.turnstile ||
-          !tokenField ||
-          window.MEDULLAHR_CHALLENGE_BROKEN
-        ) {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = submitLabel;
-          }
-          showDone(false);
-          return;
-        }
-
-        if (!token) {
-          if (challengeErr) {
-            challengeErr.textContent =
-              "Please complete the check below to confirm you are human.";
-          }
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = submitLabel;
-          }
-          return;
-        }
-
-        if (challengeErr) {
-          challengeErr.textContent = "";
-        }
-
-        fetch("/api/demo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: nameVal,
-            email: emailVal,
-            company: companyVal,
-            size: sizeVal,
-            tasks: taskVals,
-            other: otherVal,
-            contact_preference_note: trapInput ? trapInput.value : "",
-            turnstileToken: token
-          })
-        })
-          .then((res) =>
-            res
-              .json()
-              .catch(() => ({}))
-              .then((body) => {
-                resetChallenge();
-
-                // A rejected check is worth a second try rather than a dead
-                // end. Any other refusal falls back to the email route.
-                if (!res.ok && body.reason === "human_check_failed") {
-                  if (challengeErr) {
-                    challengeErr.textContent =
-                      "That check did not pass. Please try once more.";
-                  }
-                  if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = submitLabel;
-                  }
-                  return;
-                }
-
-                showDone(res.ok);
-              })
-          )
-          .catch(() => {
-            resetChallenge();
-            showDone(false);
-          });
+        const wording = text ? text.textContent.trim() : "";
+        return wording && wording !== box.value
+          ? `${wording} (${box.value})`
+          : box.value;
       });
-    }
+      const otherVal =
+        otherToggle && otherToggle.checked && otherInput
+          ? otherInput.value.trim()
+          : "";
+
+      let hasError = false;
+      if (!nameVal) {
+        hasError = true;
+        if (nameInput) nameInput.setAttribute("aria-invalid", "true");
+        if (nameErr) nameErr.textContent = "Please enter your name.";
+      } else {
+        if (nameInput) nameInput.setAttribute("aria-invalid", "false");
+        if (nameErr) nameErr.textContent = "";
+      }
+
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailVal);
+      if (!emailValid) {
+        hasError = true;
+        if (emailInput) emailInput.setAttribute("aria-invalid", "true");
+        if (emailErr) emailErr.textContent = "Please enter a valid work email.";
+      } else {
+        if (emailInput) emailInput.setAttribute("aria-invalid", "false");
+        if (emailErr) emailErr.textContent = "";
+      }
+
+      if (hasError) return;
+
+      const subject = encodeURIComponent(
+        `MedullaHR Demo Request${companyVal ? " for " + companyVal : ""}`
+      );
+      const bodyLines = [
+        `Name: ${nameVal}`,
+        `Work email: ${emailVal}`,
+        companyVal ? `Company: ${companyVal}` : null,
+        sizeVal ? `Team size: ${sizeVal}` : null,
+        taskLabels.length
+          ? `\nLooking to simplify:\n${taskLabels.map((t) => `- ${t}`).join("\n")}`
+          : null,
+        otherVal
+          ? `${taskLabels.length ? "" : "\n"}- Something else: ${otherVal}`
+          : null
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      const mailtoHref = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${encodeURIComponent(bodyLines)}`;
+      const mailtoLink = document.getElementById("mh-demo-mailto-fallback");
+      if (mailtoLink) {
+        mailtoLink.setAttribute("href", mailtoHref);
+      }
+
+      const submitBtn = demoForm.querySelector('button[type="submit"]');
+      const submitLabel = submitBtn ? submitBtn.textContent : "";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Sending…";
+      }
+
+      // Show the done view either way; the mailto button is only offered
+      // when the request did not reach us.
+      const doneHeading = demoDoneView
+        ? demoDoneView.querySelector("h2")
+        : null;
+
+      const showDone = (sent) => {
+        if (doneHeading) {
+          doneHeading.textContent = sent
+            ? "Request sent"
+            : "Demo request ready";
+        }
+        if (demoDoneText) {
+          demoDoneText.textContent = sent
+            ? `Thank you, ${nameVal}. Your request is with our team and we will reply to ${emailVal} shortly.`
+            : `Thank you, ${nameVal}. Your demo request details are ready for ${CONTACT_EMAIL}.`;
+        }
+        if (mailtoLink) {
+          mailtoLink.hidden = sent;
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
+        if (demoFormView && demoDoneView) {
+          demoFormView.hidden = true;
+          demoDoneView.hidden = false;
+          demoDoneView.style.display = "";
+        }
+      };
+
+      const resetChallenge = () => {
+        if (window.turnstile) {
+          try {
+            window.turnstile.reset("#mh-demo-turnstile");
+          } catch (err) {
+            /* the widget was never rendered */
+          }
+        }
+      };
+
+      const tokenField = demoForm.querySelector(
+        'input[name="cf-turnstile-response"]'
+      );
+      const token = tokenField ? tokenField.value : "";
+      const challengeErr = document.getElementById("mh-err-turnstile");
+
+      // An ad blocker, a blocked network or a widget that refuses to run
+      // can stop the check working. That is not the visitor's fault, so
+      // hand them the email route rather than a dead end.
+      if (
+        !window.turnstile ||
+        !tokenField ||
+        window.MEDULLAHR_CHALLENGE_BROKEN
+      ) {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
+        showDone(false);
+        return;
+      }
+
+      if (!token) {
+        if (challengeErr) {
+          challengeErr.textContent =
+            "Please complete the check below to confirm you are human.";
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = submitLabel;
+        }
+        return;
+      }
+
+      if (challengeErr) {
+        challengeErr.textContent = "";
+      }
+
+      fetch("/api/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: nameVal,
+          email: emailVal,
+          company: companyVal,
+          size: sizeVal,
+          tasks: taskVals,
+          other: otherVal,
+          contact_preference_note: trapInput ? trapInput.value : "",
+          turnstileToken: token
+        })
+      })
+        .then((res) =>
+          res
+            .json()
+            .catch(() => ({}))
+            .then((body) => {
+              resetChallenge();
+
+              // A rejected check is worth a second try rather than a dead
+              // end. Any other refusal falls back to the email route.
+              if (!res.ok && body.reason === "human_check_failed") {
+                if (challengeErr) {
+                  challengeErr.textContent =
+                    "That check did not pass. Please try once more.";
+                }
+                if (submitBtn) {
+                  submitBtn.disabled = false;
+                  submitBtn.textContent = submitLabel;
+                }
+                return;
+              }
+
+              showDone(res.ok);
+            })
+        )
+        .catch(() => {
+          resetChallenge();
+          showDone(false);
+        });
+    });
   }
 })();
 
