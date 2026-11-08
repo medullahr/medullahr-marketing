@@ -598,23 +598,6 @@ svg, canvas {
   pointer-events: none;
 }
 
-.mh-hero-watermark {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--mh-heading);
-  font-weight: 700;
-  font-size: clamp(58px, 12vw, 168px);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(47, 102, 82, 0.16);
-  pointer-events: none;
-  white-space: nowrap;
-  user-select: none;
-}
-
 .mh-hero-board {
   position: relative;
   z-index: 2;
@@ -2475,4 +2458,49 @@ dialog.mh-dialog[open] {
 
 .mh-staff-page #for-staff {
   padding-top: clamp(20px, 2.6vw, 32px);
+}
+
+/* ---------- "Read more" on the problem cards ---------- */
+.mh-readmore {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  margin-top: 10px;
+  padding: 10px 0;
+  background: none;
+  color: var(--mh-green);
+  font-family: var(--mh-sans);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mh-readmore:hover {
+  color: var(--mh-green-dark);
+}
+
+.mh-readmore-arrow {
+  transition: transform 0.25s var(--mh-ease);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.mh-readmore[aria-expanded="true"] .mh-readmore-arrow {
+  transform: rotate(180deg);
+}
+
+.mh-problem-text {
+  margin-top: 4px;
+}
+
+.mh-problem-text[hidden] {
+  display: none;
+}
+
+/* The contact box now leads with one primary button and a row of
+   secondary ones underneath. */
+.mh-cta-buttons-alt .mh-btn-outline {
+  font-size: 15px;
+  padding: 10px 20px;
 }

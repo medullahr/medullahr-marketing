@@ -304,31 +304,42 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
     });
   });
 
+  // The label says whether a module is part of the core set, so it stays put
+  // while the switch itself moves.
   moduleCards.forEach((card) => {
     card.addEventListener("click", () => {
       const current = card.getAttribute("aria-pressed") === "true";
       card.setAttribute("aria-pressed", current ? "false" : "true");
-      const statusText = card.querySelector(".mh-module-state-text");
-      if (statusText) {
-        statusText.textContent = current ? "Switch on" : "Switched on";
-      }
     });
   });
 
   showModuleView("");
+
+  // 6b. "Read more" on the problem cards
+  // Every card starts closed on each visit. Nothing is remembered.
+  Array.from(document.querySelectorAll(".mh-readmore")).forEach((btn) => {
+    const target = document.getElementById(btn.getAttribute("aria-controls"));
+    const label = btn.querySelector(".mh-readmore-label");
+    if (!target) return;
+
+    target.hidden = true;
+    btn.setAttribute("aria-expanded", "false");
+
+    btn.addEventListener("click", () => {
+      const isOpen = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+      target.hidden = isOpen;
+      if (label) label.textContent = isOpen ? "Read more" : "Show less";
+    });
+  });
 
   // 7. Interactive 3-Step Process ("How it works")
   const stepData = [
     {
       num: "Step 01",
       title: "We set up your company",
-      lead: "We configure your UAE company profile, working week, leave policies, and the exact HR modules you want switched on.",
-      desc: "No complex setup screens or blank templates to figure out on your own. Your account arrives structured around how your business actually operates.",
-      checks: [
-        "Company structure & departments",
-        "UAE leave & public holiday rules",
-        "Only the modules you need switched on"
-      ],
+      lead: "We configure your company profile, working week, leave policies, and the exact HR modules you want switched on.",
+      desc: "Nothing to figure out on your own. Your account arrives ready to use.",
       visualTitle: "Company Configuration",
       visualBadge: "Ready",
       rows: [
@@ -340,37 +351,27 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
     {
       num: "Step 02",
       title: "You add your staff",
-      lead: "Bring your people in from your existing spreadsheet or add them directly into one clean employee directory.",
-      desc: "Names, roles, reporting lines, visa and Emirates ID expiry dates, and salary details finally live in one organised record instead of scattered files.",
-      checks: [
-        "Import from your existing sheet",
-        "Org chart built automatically",
-        "Visa & contract dates tracked"
-      ],
+      lead: "Bring your people in from your existing spreadsheet or add them one by one.",
+      desc: "Names, roles, reporting lines and visa dates end up in one organised record.",
       visualTitle: "Staff Directory Sync",
       visualBadge: "Organised",
       rows: [
+        ["Org Chart & Reporting lines", "Mapped"],
         ["Employee profiles & roles", "Imported"],
-        ["Reporting lines & Org Chart", "Mapped"],
         ["Passport, Visa & Emirates ID dates", "Tracked"]
       ]
     },
     {
       num: "Step 03",
       title: "Your staff sign in",
-      lead: "Every employee gets their own clean login to request leave, check balances, view payslips, and access documents.",
-      desc: "No more chat messages asking how many leave days are left or emails chasing salary certificates. Managers approve requests in one click.",
-      checks: [
-        "Self-service staff portal",
-        "One-click manager approvals",
-        "Instant access on mobile or desktop"
-      ],
+      lead: "Each employee gets their own login to request leave, check balances, view payslips and find documents.",
+      desc: "Managers and HR approve in one click, on mobile or desktop.",
       visualTitle: "Employee Portal Access",
       visualBadge: "Live",
       rows: [
-        ["Staff self-service sign-in", "Active"],
+        ["Staff sign-in", "Active"],
         ["Leave requests & approvals", "Online"],
-        ["Payslips & HR documents", "Self-serve"]
+        ["Payslips & HR documents", "Available anytime"]
       ]
     }
   ];
@@ -411,18 +412,9 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
       }
     });
 
-    if (procNum) procNum.textContent = `${data.num} — ${data.title}`;
+    if (procNum) procNum.textContent = `${data.num}. ${data.title}`;
     if (procLead) procLead.textContent = data.lead;
     if (procDesc) procDesc.textContent = data.desc;
-
-    if (procChecks) {
-      procChecks.innerHTML = data.checks
-        .map(
-          (item) =>
-            `<li><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 7.5l3 3 6-7"/></svg>${item}</li>`
-        )
-        .join("");
-    }
 
     if (procVisTitle) procVisTitle.textContent = data.visualTitle;
     if (procVisBadge) procVisBadge.textContent = data.visualBadge;
@@ -752,7 +744,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
         if (hasError) return;
 
         const subject = encodeURIComponent(
-          `MedullaHR Demo Request${companyVal ? " — " + companyVal : ""}`
+          `MedullaHR Demo Request${companyVal ? " for " + companyVal : ""}`
         );
         const bodyLines = [
           `Name: ${nameVal}`,
