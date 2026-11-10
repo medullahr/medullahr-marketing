@@ -2,3 +2,10 @@
 .dev.vars
 node_modules/
 .DS_Store
+
+# Working notes and tooling output. The published site is this folder, so
+# nothing that is not part of the site may live here.
+docs/
+internal-notes/
+.impeccable/
+.playwright-mcp/
