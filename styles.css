@@ -579,19 +579,9 @@ svg, canvas {
   background: linear-gradient(155deg, var(--mh-tint) 0%, #D3E9DE 52%, #C0DFD0 100%);
   border: 1px solid var(--mh-line-strong);
   overflow: hidden;
-  isolation: isolate;
   padding: clamp(20px, 3.6vw, 44px);
   text-align: left;
   box-shadow: var(--mh-shadow-sm);
-}
-
-.mh-hero-stage > canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  pointer-events: none;
 }
 
 .mh-hero-board {

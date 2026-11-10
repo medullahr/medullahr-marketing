@@ -52,30 +52,64 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
   window.addEventListener("scroll", updateHeaderScroll, { passive: true });
 
   if (burger && header) {
-    const setDrawer = (open) => {
+    const drawer = header.querySelector(".mh-drawer");
+
+    // While the drawer is open it is the only thing worth reaching, so
+    // focus moves into it, stays inside it, and comes back to the button
+    // that opened it.
+    const focusables = () =>
+      drawer
+        ? Array.from(drawer.querySelectorAll("a[href], button:not([disabled])"))
+        : [];
+
+    const setDrawer = (open, returnFocus) => {
       header.dataset.open = open ? "true" : "false";
       burger.setAttribute("aria-expanded", open ? "true" : "false");
+      if (open) {
+        const first = focusables()[0];
+        if (first) first.focus();
+      } else if (returnFocus) {
+        burger.focus();
+      }
     };
 
     burger.addEventListener("click", () => {
       const isOpen = header.dataset.open === "true";
-      setDrawer(!isOpen);
+      setDrawer(!isOpen, isOpen);
     });
 
     drawerLinks.forEach((el) => {
-      el.addEventListener("click", () => setDrawer(false));
+      el.addEventListener("click", () => setDrawer(false, false));
     });
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && header.dataset.open === "true") {
-        setDrawer(false);
-        burger.focus();
+      if (header.dataset.open !== "true") return;
+
+      if (e.key === "Escape") {
+        setDrawer(false, true);
+        return;
+      }
+
+      if (e.key !== "Tab") return;
+
+      const items = focusables();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+
+      if (e.shiftKey && (active === first || !drawer.contains(active))) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
       }
     });
 
     document.addEventListener("pointerdown", (e) => {
       if (header.dataset.open === "true" && !header.contains(e.target)) {
-        setDrawer(false);
+        setDrawer(false, false);
       }
     });
   }
@@ -109,159 +143,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
     });
   }
 
-  // 4. Serene Daylight Long-Exposure Ribbon Canvas (Hero)
-  function attachDaylightCanvas(canvas, seedOffset) {
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const parent = canvas.parentElement;
-    if (!parent) return;
-
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-    let visible = false;
-    let rafId = 0;
-    let time = seedOffset * 4.2;
-    let lastTick = performance.now();
-    const ptr = { x: 0, y: 0, tx: 0, ty: 0 };
-
-    const resize = () => {
-      const rect = parent.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = Math.max(1, Math.round(rect.width));
-      height = Math.max(1, Math.round(rect.height));
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      drawFrame();
-    };
-
-    const drawFrame = () => {
-      if (width < 2 || height < 2) return;
-      ctx.clearRect(0, 0, width, height);
-
-      const baseGrad = ctx.createLinearGradient(0, 0, width, height);
-      baseGrad.addColorStop(0, "#E4F1EA");
-      baseGrad.addColorStop(0.55, "#D6EAE0");
-      baseGrad.addColorStop(1, "#C3E0D2");
-      ctx.fillStyle = baseGrad;
-      ctx.fillRect(0, 0, width, height);
-
-      const glowX = width * (0.52 + ptr.x * 0.14);
-      const glowY = height * (0.45 + ptr.y * 0.14);
-      const radGrad = ctx.createRadialGradient(
-        glowX,
-        glowY,
-        10,
-        glowX,
-        glowY,
-        Math.max(width, height) * 0.65
-      );
-      radGrad.addColorStop(0, "rgba(255, 255, 255, 0.72)");
-      radGrad.addColorStop(0.5, "rgba(228, 241, 234, 0.35)");
-      radGrad.addColorStop(1, "rgba(47, 102, 82, 0.0)");
-      ctx.fillStyle = radGrad;
-      ctx.fillRect(0, 0, width, height);
-
-      for (let i = 0; i < 4; i++) {
-        ctx.beginPath();
-        const baseY = height * (0.26 + i * 0.17);
-        const amp = 18 + i * 7;
-        const freq = 0.0032 + i * 0.0007;
-        const speed = time * (0.35 + i * 0.08) + i * 1.6;
-
-        ctx.moveTo(0, height);
-        for (let x = 0; x <= width; x += 24) {
-          const wave1 = Math.sin(x * freq + speed + ptr.x * 0.8) * amp;
-          const wave2 =
-            Math.cos(x * (freq * 1.7) - speed * 0.7 + i) * (amp * 0.45);
-          const y = baseY + wave1 + wave2 + ptr.y * 12;
-          ctx.lineTo(x, y);
-        }
-        ctx.lineTo(width, height);
-        ctx.closePath();
-
-        const alpha = 0.055 + i * 0.022;
-        ctx.fillStyle = `rgba(47, 102, 82, ${alpha})`;
-        ctx.fill();
-      }
-    };
-
-    const tick = (now) => {
-      rafId = 0;
-      if (!visible) return;
-      const dt = Math.min(0.05, (now - lastTick) / 1000);
-      lastTick = now;
-
-      ptr.x += (ptr.tx - ptr.x) * Math.min(1, dt * 4);
-      ptr.y += (ptr.ty - ptr.y) * Math.min(1, dt * 4);
-
-      if (!prefersReducedMotion()) {
-        time += dt;
-        drawFrame();
-        rafId = requestAnimationFrame(tick);
-      } else {
-        drawFrame();
-      }
-    };
-
-    const startLoop = () => {
-      if (!rafId && visible) {
-        lastTick = performance.now();
-        rafId = requestAnimationFrame(tick);
-      }
-    };
-
-    if (typeof IntersectionObserver !== "undefined") {
-      const io = new IntersectionObserver(
-        ([entry]) => {
-          visible = entry.isIntersecting;
-          if (visible) startLoop();
-        },
-        { rootMargin: "100px" }
-      );
-      io.observe(parent);
-    } else {
-      visible = true;
-      startLoop();
-    }
-
-    if (typeof ResizeObserver !== "undefined") {
-      const ro = new ResizeObserver(resize);
-      ro.observe(parent);
-    } else {
-      window.addEventListener("resize", resize);
-    }
-
-    parent.addEventListener("pointermove", (e) => {
-      const r = parent.getBoundingClientRect();
-      ptr.tx = ((e.clientX - r.left) / Math.max(1, r.width) - 0.5) * 2;
-      ptr.ty = ((e.clientY - r.top) / Math.max(1, r.height) - 0.5) * 2;
-      startLoop();
-    });
-
-    parent.addEventListener("pointerleave", () => {
-      ptr.tx = 0;
-      ptr.ty = 0;
-    });
-
-    resize();
-  }
-
-  attachDaylightCanvas(document.getElementById("mh-hero-canvas"), 1);
-
-  // 5. Interactive Hero Mini-Chips
-  document.querySelectorAll(".mh-mini-chip").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const isOn = chip.dataset.active === "true";
-      chip.dataset.active = isOn ? "false" : "true";
-      chip.setAttribute("aria-pressed", isOn ? "false" : "true");
-    });
-  });
-
-  // 6. Modules list, shown on request
+  // 4. Modules list, shown on request
   // Both panels start closed on every visit. Nothing is remembered between
   // visits on purpose, so the page always opens at its shortest.
   const moduleCards = Array.from(document.querySelectorAll(".mh-module-card"));
@@ -332,7 +214,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
     });
   });
 
-  // 7. Interactive 3-Step Process ("How it works")
+  // 5. Interactive 3-Step Process ("How it works")
   const stepData = [
     {
       num: "Step 01",
@@ -456,7 +338,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
 
   renderStep(0);
 
-  // 8. Interactive "For staff" Split Panel
+  // 6. Interactive "For staff" Split Panel
   const staffData = [
     {
       title: "Ask for leave",
@@ -602,7 +484,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
 
   renderStaffTab(0, false);
 
-  // 9. Demo request form
+  // 7. Demo request form
   // The form lives on the About page now, so every page without it skips
   // this block.
   const demoForm = document.getElementById("mh-demo-form");

@@ -87,7 +87,6 @@
         </div>
 
         <div class="mh-hero-stage mh-in" style="animation-delay: 240ms">
-          <canvas id="mh-hero-canvas" aria-hidden="true"></canvas>
           <div class="mh-hero-board">
             <!-- Left card: Live workflow & module switches -->
             <div class="mh-board-card">
@@ -125,47 +124,25 @@
                 <span class="mh-flow-node"><i></i>Payroll and Benefits</span>
               </div>
 
-              <div
-                class="mh-mini-toggles"
-                role="group"
-                aria-label="Sample module switches"
-              >
-                <button
-                  type="button"
-                  class="mh-mini-chip"
-                  data-active="true"
-                  aria-pressed="true"
-                >
+              <!-- Illustration only. These are a picture of module switches,
+                   not controls, so they are not buttons. -->
+              <div class="mh-mini-toggles">
+                <div class="mh-mini-chip" data-active="true">
                   <span>HR Admin and Documents</span>
                   <span class="mh-switch-dot" aria-hidden="true"></span>
-                </button>
-                <button
-                  type="button"
-                  class="mh-mini-chip"
-                  data-active="true"
-                  aria-pressed="true"
-                >
+                </div>
+                <div class="mh-mini-chip" data-active="true">
                   <span>HR Compliance Reminders</span>
                   <span class="mh-switch-dot" aria-hidden="true"></span>
-                </button>
-                <button
-                  type="button"
-                  class="mh-mini-chip"
-                  data-active="false"
-                  aria-pressed="false"
-                >
+                </div>
+                <div class="mh-mini-chip" data-active="false">
                   <span>Learning and Development</span>
                   <span class="mh-switch-dot" aria-hidden="true"></span>
-                </button>
-                <button
-                  type="button"
-                  class="mh-mini-chip"
-                  data-active="false"
-                  aria-pressed="false"
-                >
+                </div>
+                <div class="mh-mini-chip" data-active="false">
                   <span>Performance and Feedback</span>
                   <span class="mh-switch-dot" aria-hidden="true"></span>
-                </button>
+                </div>
               </div>
             </div>
 
@@ -239,7 +216,7 @@
               </span>
             </div>
 
-            <div class="mh-problem-artifact" aria-hidden="true">
+            <div class="mh-problem-artifact">
               <code>Staff_Leave_Master_FINAL_v4.xlsx</code>
               <span>Three versions saved across different folders</span>
             </div>
@@ -299,7 +276,7 @@
               </span>
             </div>
 
-            <div class="mh-problem-artifact" aria-hidden="true">
+            <div class="mh-problem-artifact">
               <code>Salary_Certificate_Ahmed_v2.docx</code>
               <span>Typed again from scratch every time</span>
             </div>
@@ -358,7 +335,7 @@
               </span>
             </div>
 
-            <div class="mh-problem-artifact" aria-hidden="true">
+            <div class="mh-problem-artifact">
               <code>Re: Fwd: Passport &amp; Emirates ID scan</code>
               <span>Attachments scattered across inboxes</span>
             </div>
