@@ -2456,20 +2456,42 @@ svg, canvas {
 }
 
 
-/* Closing strip on the home page */
+/* Closing strip on the home page. This is the last thing a visitor sees
+   before the footer, so it carries the page's only deep green surface and
+   the largest heading of the lower sections. */
 .mh-closing-strip {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
-  padding: clamp(24px, 3vw, 34px) clamp(24px, 3.4vw, 40px);
-  border-radius: 20px;
-  background-color: var(--mh-soft);
-  border: 1px solid var(--mh-line);
+  gap: 24px;
+  padding: clamp(40px, 6vw, 72px) clamp(26px, 4vw, 56px);
+  border-radius: 24px;
+  background: linear-gradient(155deg, var(--mh-green) 0%, var(--mh-green-dark) 100%);
+  color: var(--mh-white);
+  box-shadow: var(--mh-shadow-lg);
+}
+
+.mh-closing-words {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 34ch;
 }
 
 .mh-closing-strip .mh-h2 {
-  font-size: clamp(21px, 2.2vw, 27px);
+  font-size: clamp(27px, 3.4vw, 40px);
+  color: var(--mh-white);
+}
+
+.mh-closing-strip p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+/* The page-wide focus ring is green, which would vanish on this surface. */
+.mh-closing-strip a:focus-visible {
+  outline-color: var(--mh-white);
 }
 
 @media (min-width: 620px) {
@@ -2477,7 +2499,7 @@ svg, canvas {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 32px;
   }
 }
 
