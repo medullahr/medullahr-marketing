@@ -1,8 +1,5 @@
-# Everything in this repository root is published, so anything that is not
-# part of the site is kept out of it. These rules are the safety net: they
-# answer with the 404 page for paths that once held working files.
-/_rules-check /about 302
+# The repository root is the published folder, so anything that is not part
+# of the site is kept out of it. This answers with the 404 page for paths
+# that used to hold working notes, so an old link or a search result lands
+# on the normal 404 rather than on anything else.
 /docs/* /404.html 404
-/.gitignore /404.html 404
-/.git* /404.html 404
-/.impeccable/* /404.html 404

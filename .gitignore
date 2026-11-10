@@ -3,9 +3,6 @@
 node_modules/
 .DS_Store
 
-# Working notes and tooling output. The published site is this folder, so
-# nothing that is not part of the site may live here.
+# This folder is published as it stands, so nothing that is not part of the
+# site belongs in it. Working notes live outside the site folder.
 docs/
-internal-notes/
-.impeccable/
-.playwright-mcp/
