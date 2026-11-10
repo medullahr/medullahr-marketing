@@ -194,7 +194,7 @@ svg, canvas {
 
 .mh-nav-links a {
   position: relative;
-  padding: 4px 0;
+  padding: 9px 0;
   transition: color 0.2s ease;
 }
 
@@ -203,7 +203,7 @@ svg, canvas {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -2px;
+  bottom: 3px;
   height: 1.5px;
   background-color: var(--mh-green);
   transform: scaleX(0);
@@ -1568,6 +1568,10 @@ svg, canvas {
 }
 
 .mh-foot-col a {
+  /* Small text, but still something a finger or a cursor has to hit. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
   font-size: 14.5px;
   font-weight: 500;
   color: var(--mh-ink-secondary);
