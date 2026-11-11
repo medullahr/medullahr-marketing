@@ -16,9 +16,9 @@
 /config.js
   Cache-Control: public, max-age=0, must-revalidate
 
-# The icons change far less often than the stylesheet, and they carry no
-# version tag, so a day in the browser cache is enough. Not immutable, so
-# a replacement icon still gets picked up the next day.
+# The icons change far less often than the stylesheet, so a day in the browser
+# cache is enough. The links to them carry a version tag, so a replacement icon
+# is picked up on the next release rather than a day later.
 /favicon.ico
   Cache-Control: public, max-age=86400
 
