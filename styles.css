@@ -1536,12 +1536,18 @@ svg, canvas {
   gap: 14px;
 }
 
-.mh-foot-tagline {
-  font-family: var(--mh-heading);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--mh-ink-secondary);
-  max-width: 34ch;
+/* The footer carries the logo with its tagline set into the artwork, so it is
+   sized by width rather than by height as the header one is. It never grows
+   past the column it sits in. */
+.mh-footer .mh-logo img {
+  width: min(230px, 100%);
+  height: auto;
+}
+
+@media (min-width: 768px) {
+  .mh-footer .mh-logo img {
+    width: min(280px, 100%);
+  }
 }
 
 .mh-foot-desc {
