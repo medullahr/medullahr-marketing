@@ -153,7 +153,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
   );
 
   // Core starter set: Org Chart (0), Employee Onboarding (2), Attendance &
-  // Leave (3), Payroll & Benefits (4), HR Admin & Documents (9), HR
+  // Leave (3), Payroll & Benefits (4), HR Files and Docs (9), HR
   // Compliance Reminders (10)
   const coreIndices = [0, 2, 3, 4, 9, 10];
   let openModuleView = "";

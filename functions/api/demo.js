@@ -86,6 +86,12 @@ const TASK_WORDING = {
   Offboarding: "Resignations, Exits & End-of-Service"
 };
 
+// When a module is renamed, the form keeps sending its original value so the
+// checks here and older cached copies of the page carry on working. That value
+// is bookkeeping, not something the reader needs, so these are described by
+// their current name alone.
+const RENAMED_TASKS = ["HR Admin and Documents"];
+
 // "Plain wording (Official module)", or the value on its own if it is not
 // one we know, which is what a cached copy of an older form may send.
 function describeTask(value) {
@@ -94,6 +100,9 @@ function describeTask(value) {
     : "";
   if (!wording || wording === value) {
     return value;
+  }
+  if (RENAMED_TASKS.indexOf(value) !== -1) {
+    return wording;
   }
   return wording + " (" + value + ")";
 }
