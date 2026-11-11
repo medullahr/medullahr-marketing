@@ -1511,7 +1511,7 @@ svg, canvas {
 /* ---------- 7. Footer ---------- */
 .mh-footer {
   margin-top: clamp(72px, 9vw, 120px);
-  padding: clamp(56px, 7vw, 88px) max(clamp(18px, 5vw, 72px), calc((100vw - var(--mh-max)) / 2)) 44px;
+  padding: clamp(32px, 4vw, 48px) max(clamp(18px, 5vw, 72px), calc((100vw - var(--mh-max)) / 2)) 24px;
   border-top: 1px solid var(--mh-line);
   background-color: var(--mh-white);
 }
@@ -1519,13 +1519,13 @@ svg, canvas {
 .mh-foot-top {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 36px;
+  gap: 26px;
 }
 
 @media (min-width: 760px) {
   .mh-foot-top {
     grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 48px;
+    gap: 40px;
   }
 }
 
@@ -1561,7 +1561,7 @@ svg, canvas {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 2px;
 }
 
 .mh-foot-col-title {
@@ -1569,14 +1569,14 @@ svg, canvas {
   font-size: 13px;
   font-weight: 600;
   color: var(--mh-muted);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .mh-foot-col a {
   /* Small text, but still something a finger or a cursor has to hit. */
   display: inline-flex;
   align-items: center;
-  min-height: 32px;
+  min-height: 30px;
   font-size: 14.5px;
   font-weight: 500;
   color: var(--mh-ink-secondary);
@@ -1598,7 +1598,7 @@ svg, canvas {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 14px;
+  padding: 6px 14px;
   border-radius: 10px;
   background-color: var(--mh-tint);
   color: var(--mh-green) !important;
@@ -1610,9 +1610,9 @@ svg, canvas {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  margin-top: 56px;
-  padding-top: 24px;
+  gap: 4px 28px;
+  margin-top: 22px;
+  padding-top: 10px;
   border-top: 1px solid var(--mh-line);
   font-size: 13px;
   color: var(--mh-muted);
@@ -2159,14 +2159,13 @@ svg, canvas {
   border-bottom: 0;
 }
 
-/* Legal links in the footer of every page. */
+/* Legal links, now sitting in the middle of the single bottom row rather
+   than on a line of their own behind a second divider. */
 .mh-foot-legal {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 22px;
-  margin-top: 26px;
-  padding-top: 22px;
-  border-top: 1px solid var(--mh-line);
+  justify-content: center;
+  gap: 0 20px;
 }
 
 .mh-foot-legal a {
@@ -2176,6 +2175,22 @@ svg, canvas {
   font-size: 14px;
   font-weight: 500;
   color: var(--mh-ink-secondary);
+}
+
+/* On a phone the bottom row stacks: the line of copyright, then the legal
+   links, then the line about the Emirates, all starting at the same edge and
+   evenly spaced. The links keep their full height, so they stay easy to hit. */
+@media (max-width: 760px) {
+  .mh-foot-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .mh-foot-legal {
+    justify-content: flex-start;
+    gap: 0 18px;
+  }
 }
 
 .mh-foot-legal a:hover,
