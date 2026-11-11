@@ -80,7 +80,7 @@ const TASK_WORDING = {
   "Performance and Feedback": "Performance Management & Feedback",
   "Employee Engagement": "Employee Engagement",
   "HR Budgets and Expenses": "HR Budgets & Expenses",
-  "HR Admin and Documents": "HR Files & Documents",
+  "HR Admin and Documents": "HR Files and Docs",
   "HR Compliance Reminders": "Visa, Emirates ID & Contract Renewal Tracking",
   "Employee Relations": "Employee Relations: complaints, warnings & disputes",
   Offboarding: "Resignations, Exits & End-of-Service"

@@ -376,7 +376,7 @@ window.mhChallengeUnavailable = function mhChallengeUnavailable() {
     },
     {
       title: "View documents",
-      badge: "HR Admin and Documents",
+      badge: "HR Files and Docs",
       cardTitle: "Personal HR Document Vault",
       cardStatus: "Always up to date",
       fields: [
